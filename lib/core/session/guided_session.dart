@@ -6,6 +6,7 @@ enum StepKind { work, rest }
 /// Un segmento de la línea de tiempo de una sesión guiada.
 class SessionStep {
   final StepKind kind;
+  final String exerciseId; // id del ejercicio (work); '' en los descansos
   final int seconds;
   final String label; // nombre del ejercicio (work) o etiqueta de descanso (rest)
   final int round; // ronda actual, 1-based
@@ -13,6 +14,7 @@ class SessionStep {
 
   const SessionStep({
     required this.kind,
+    required this.exerciseId,
     required this.seconds,
     required this.label,
     required this.round,
@@ -43,6 +45,7 @@ List<SessionStep> buildGuidedTimeline(
       final work = workSecondsOverride ?? e.workSeconds ?? defaultWorkSeconds;
       steps.add(SessionStep(
         kind: StepKind.work,
+        exerciseId: e.exerciseId,
         seconds: work,
         label: e.exerciseName,
         round: r,
@@ -50,6 +53,7 @@ List<SessionStep> buildGuidedTimeline(
       ));
       steps.add(SessionStep(
         kind: StepKind.rest,
+        exerciseId: '',
         seconds: e.restSeconds,
         label: restLabel,
         round: r,

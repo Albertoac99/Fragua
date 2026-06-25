@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../core/models/plan.dart';
+import '../exercise/exercise_demo.dart';
 import 'session_controller.dart';
 
 class SessionScreen extends ConsumerStatefulWidget {
@@ -74,6 +75,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
               children: [
                 Text(ex.exerciseName,
                     style: Theme.of(context).textTheme.titleLarge),
+                ExerciseDemo(exerciseId: ex.exerciseId),
                 Text('Objetivo: ${ex.sets} x ${ex.repLow}-${ex.repHigh}'),
                 Text('Series hechas: $done / ${ex.sets}'),
                 const SizedBox(height: 16),

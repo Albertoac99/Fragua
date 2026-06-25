@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../app/providers.dart';
 import '../../core/models/plan.dart';
 import '../../core/session/guided_session.dart';
+import '../exercise/exercise_demo.dart';
 import 'guided_session_controller.dart';
 
 class GuidedSessionScreen extends ConsumerStatefulWidget {
@@ -124,6 +125,8 @@ class _GuidedSessionScreenState extends ConsumerState<GuidedSessionScreen> {
         const SizedBox(height: 8),
         Text(isRest ? 'Descanso' : (step?.label ?? ''),
             style: Theme.of(context).textTheme.headlineSmall),
+        if (step != null && step.kind == StepKind.work && step.exerciseId.isNotEmpty)
+          ExerciseDemo(exerciseId: step.exerciseId),
         const SizedBox(height: 16),
         Text('${st.remainingSeconds}',
             style: Theme.of(context).textTheme.displayLarge),

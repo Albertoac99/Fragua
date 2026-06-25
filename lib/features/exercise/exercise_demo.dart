@@ -18,13 +18,13 @@ class ExerciseDemo extends ConsumerWidget {
       height: 180,
       child: media.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, __) => const SizedBox.shrink(),
+        error: (_, _) => const SizedBox.shrink(),
         data: (m) {
           switch (m.kind) {
             case MediaKind.gif:
               return Image.file(m.files.first,
                   fit: BoxFit.contain,
-                  errorBuilder: (_, __, ___) => _instructions(context, m));
+                  errorBuilder: (_, _, _) => _instructions(context, m));
             case MediaKind.frames:
               return _FrameAnimation(frames: m.files);
             case MediaKind.text:
@@ -85,7 +85,7 @@ class _FrameAnimationState extends State<_FrameAnimation> {
         widget.frames[_i],
         key: ValueKey(_i),
         fit: BoxFit.contain,
-        errorBuilder: (_, __, ___) =>
+        errorBuilder: (_, _, _) =>
             const Center(child: Icon(Icons.fitness_center, size: 48)),
       ),
     );

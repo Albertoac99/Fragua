@@ -64,6 +64,14 @@ void main() {
     expect(t[0].seconds, 30);
   });
 
+  test('cada paso de trabajo lleva el id del ejercicio; el descanso no', () {
+    final t = buildGuidedTimeline(circuit(rounds: 1));
+    expect(t[0].kind, StepKind.work);
+    expect(t[0].exerciseId, 'a');
+    expect(t[1].kind, StepKind.rest);
+    expect(t[1].exerciseId, '');
+  });
+
   test('AMRAP no tiene timeline fijo => lista vacía', () {
     const day = PlanDay(
       name: 'AMRAP',
