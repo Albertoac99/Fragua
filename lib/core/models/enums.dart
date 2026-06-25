@@ -52,3 +52,23 @@ Equipment equipmentFromRaw(String? raw) {
       return Equipment.other;
   }
 }
+
+/// Divisiones de la liga (orden ascendente).
+enum Division { bronze, silver, gold, platinum, diamond, legend }
+
+/// Arquetipo de los rivales simulados (define su distribución de XP semanal).
+enum BotArchetype { steady, sporadic, beginner, grinder }
+
+/// Fuente de una entrada de XP.
+enum XpSource { workout, set, pr, streak }
+
+/// Logros desbloqueables.
+enum AchievementType {
+  firstWorkout,
+  tenWorkouts,
+  fiftyWorkouts,
+  hundredWorkouts,
+  firstPr,
+  streak7,
+  streak30,
+}
