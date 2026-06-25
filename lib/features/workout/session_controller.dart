@@ -99,6 +99,17 @@ class WorkoutSessionController extends ChangeNotifier {
       if (result.nextWeight > weight) _prCount++;
       await db.saveExerciseState(
           e.exerciseId, result.nextWeight, result.nextStallCount);
+      final totalReps = reps.fold<int>(0, (a, b) => a + b);
+      final maxReps = reps.reduce((a, b) => a > b ? a : b);
+      await db.addExerciseLog(
+        exerciseId: e.exerciseId,
+        exerciseName: e.exerciseName,
+        performedAt: DateTime.now(),
+        weight: weight,
+        totalReps: totalReps,
+        sets: reps.length,
+        maxReps: maxReps,
+      );
     }
     _state = _state.copyWith(finished: true);
     notifyListeners();
