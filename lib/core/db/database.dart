@@ -82,13 +82,62 @@ class GuidedStates extends Table {
   Set<Column> get primaryKey => {dayKey};
 }
 
-@DriftDatabase(
-    tables: [Exercises, UserProfiles, Plans, ExerciseStates, GuidedStates])
+@DataClassName('LeagueStateRow')
+class LeagueStates extends Table {
+  IntColumn get id => integer().named('id').withDefault(const Constant(0))();
+  TextColumn get division =>
+      text().named('division').withDefault(const Constant('bronze'))();
+  IntColumn get weekId =>
+      integer().named('week_id').withDefault(const Constant(0))();
+  IntColumn get weeklyXp =>
+      integer().named('weekly_xp').withDefault(const Constant(0))();
+  IntColumn get streakCurrent =>
+      integer().named('streak_current').withDefault(const Constant(0))();
+  IntColumn get streakRecord =>
+      integer().named('streak_record').withDefault(const Constant(0))();
+  IntColumn get lastActiveDay => integer().named('last_active_day').nullable()();
+  IntColumn get totalWorkouts =>
+      integer().named('total_workouts').withDefault(const Constant(0))();
+  IntColumn get totalPrs =>
+      integer().named('total_prs').withDefault(const Constant(0))();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DataClassName('XpEntryRow')
+class XpEntries extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get weekId => integer().named('week_id')();
+  TextColumn get source => text().named('source')();
+  IntColumn get amount => integer().named('amount')();
+  DateTimeColumn get createdAt => dateTime().named('created_at')();
+}
+
+@DataClassName('AchievementRow')
+class Achievements extends Table {
+  TextColumn get type => text().named('type')();
+  DateTimeColumn get unlockedAt => dateTime().named('unlocked_at')();
+
+  @override
+  Set<Column> get primaryKey => {type};
+}
+
+@DriftDatabase(tables: [
+  Exercises,
+  UserProfiles,
+  Plans,
+  ExerciseStates,
+  GuidedStates,
+  LeagueStates,
+  XpEntries,
+  Achievements,
+])
 class FraguaDatabase extends _$FraguaDatabase {
   FraguaDatabase(super.e);
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -102,6 +151,11 @@ class FraguaDatabase extends _$FraguaDatabase {
           if (from < 2) await m.createTable(plans);
           if (from < 3) await m.createTable(exerciseStates);
           if (from < 4) await m.createTable(guidedStates);
+          if (from < 5) {
+            await m.createTable(leagueStates);
+            await m.createTable(xpEntries);
+            await m.createTable(achievements);
+          }
         },
       );
 
@@ -220,6 +274,62 @@ class FraguaDatabase extends _$FraguaDatabase {
         rounds: rounds,
         streak: Value(streak),
       ),
+    );
+  }
+
+  Future<LeagueStateRow?> loadLeagueState() =>
+      (select(leagueStates)..where((t) => t.id.equals(0))).getSingleOrNull();
+
+  Future<void> saveLeagueState({
+    required String division,
+    required int weekId,
+    required int weeklyXp,
+    required int streakCurrent,
+    required int streakRecord,
+    int? lastActiveDay,
+    required int totalWorkouts,
+    required int totalPrs,
+  }) async {
+    await into(leagueStates).insertOnConflictUpdate(
+      LeagueStatesCompanion.insert(
+        id: const Value(0),
+        division: Value(division),
+        weekId: Value(weekId),
+        weeklyXp: Value(weeklyXp),
+        streakCurrent: Value(streakCurrent),
+        streakRecord: Value(streakRecord),
+        lastActiveDay: Value(lastActiveDay),
+        totalWorkouts: Value(totalWorkouts),
+        totalPrs: Value(totalPrs),
+      ),
+    );
+  }
+
+  Future<void> addXpEntry({
+    required int weekId,
+    required String source,
+    required int amount,
+    required DateTime createdAt,
+  }) async {
+    await into(xpEntries).insert(
+      XpEntriesCompanion.insert(
+        weekId: weekId,
+        source: source,
+        amount: amount,
+        createdAt: createdAt,
+      ),
+    );
+  }
+
+  Future<Set<String>> loadAchievements() async {
+    final rows = await select(achievements).get();
+    return rows.map((r) => r.type).toSet();
+  }
+
+  Future<void> unlockAchievement(String type, DateTime at) async {
+    await into(achievements).insert(
+      AchievementsCompanion.insert(type: type, unlockedAt: at),
+      mode: InsertMode.insertOrIgnore,
     );
   }
 }

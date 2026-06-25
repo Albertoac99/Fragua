@@ -2304,6 +2304,1119 @@ class GuidedStatesCompanion extends UpdateCompanion<GuidedStateRow> {
   }
 }
 
+class $LeagueStatesTable extends LeagueStates
+    with TableInfo<$LeagueStatesTable, LeagueStateRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $LeagueStatesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _divisionMeta = const VerificationMeta(
+    'division',
+  );
+  @override
+  late final GeneratedColumn<String> division = GeneratedColumn<String>(
+    'division',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('bronze'),
+  );
+  static const VerificationMeta _weekIdMeta = const VerificationMeta('weekId');
+  @override
+  late final GeneratedColumn<int> weekId = GeneratedColumn<int>(
+    'week_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _weeklyXpMeta = const VerificationMeta(
+    'weeklyXp',
+  );
+  @override
+  late final GeneratedColumn<int> weeklyXp = GeneratedColumn<int>(
+    'weekly_xp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _streakCurrentMeta = const VerificationMeta(
+    'streakCurrent',
+  );
+  @override
+  late final GeneratedColumn<int> streakCurrent = GeneratedColumn<int>(
+    'streak_current',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _streakRecordMeta = const VerificationMeta(
+    'streakRecord',
+  );
+  @override
+  late final GeneratedColumn<int> streakRecord = GeneratedColumn<int>(
+    'streak_record',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _lastActiveDayMeta = const VerificationMeta(
+    'lastActiveDay',
+  );
+  @override
+  late final GeneratedColumn<int> lastActiveDay = GeneratedColumn<int>(
+    'last_active_day',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _totalWorkoutsMeta = const VerificationMeta(
+    'totalWorkouts',
+  );
+  @override
+  late final GeneratedColumn<int> totalWorkouts = GeneratedColumn<int>(
+    'total_workouts',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _totalPrsMeta = const VerificationMeta(
+    'totalPrs',
+  );
+  @override
+  late final GeneratedColumn<int> totalPrs = GeneratedColumn<int>(
+    'total_prs',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    division,
+    weekId,
+    weeklyXp,
+    streakCurrent,
+    streakRecord,
+    lastActiveDay,
+    totalWorkouts,
+    totalPrs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'league_states';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<LeagueStateRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('division')) {
+      context.handle(
+        _divisionMeta,
+        division.isAcceptableOrUnknown(data['division']!, _divisionMeta),
+      );
+    }
+    if (data.containsKey('week_id')) {
+      context.handle(
+        _weekIdMeta,
+        weekId.isAcceptableOrUnknown(data['week_id']!, _weekIdMeta),
+      );
+    }
+    if (data.containsKey('weekly_xp')) {
+      context.handle(
+        _weeklyXpMeta,
+        weeklyXp.isAcceptableOrUnknown(data['weekly_xp']!, _weeklyXpMeta),
+      );
+    }
+    if (data.containsKey('streak_current')) {
+      context.handle(
+        _streakCurrentMeta,
+        streakCurrent.isAcceptableOrUnknown(
+          data['streak_current']!,
+          _streakCurrentMeta,
+        ),
+      );
+    }
+    if (data.containsKey('streak_record')) {
+      context.handle(
+        _streakRecordMeta,
+        streakRecord.isAcceptableOrUnknown(
+          data['streak_record']!,
+          _streakRecordMeta,
+        ),
+      );
+    }
+    if (data.containsKey('last_active_day')) {
+      context.handle(
+        _lastActiveDayMeta,
+        lastActiveDay.isAcceptableOrUnknown(
+          data['last_active_day']!,
+          _lastActiveDayMeta,
+        ),
+      );
+    }
+    if (data.containsKey('total_workouts')) {
+      context.handle(
+        _totalWorkoutsMeta,
+        totalWorkouts.isAcceptableOrUnknown(
+          data['total_workouts']!,
+          _totalWorkoutsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('total_prs')) {
+      context.handle(
+        _totalPrsMeta,
+        totalPrs.isAcceptableOrUnknown(data['total_prs']!, _totalPrsMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  LeagueStateRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return LeagueStateRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      division: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}division'],
+      )!,
+      weekId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}week_id'],
+      )!,
+      weeklyXp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}weekly_xp'],
+      )!,
+      streakCurrent: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}streak_current'],
+      )!,
+      streakRecord: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}streak_record'],
+      )!,
+      lastActiveDay: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}last_active_day'],
+      ),
+      totalWorkouts: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_workouts'],
+      )!,
+      totalPrs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_prs'],
+      )!,
+    );
+  }
+
+  @override
+  $LeagueStatesTable createAlias(String alias) {
+    return $LeagueStatesTable(attachedDatabase, alias);
+  }
+}
+
+class LeagueStateRow extends DataClass implements Insertable<LeagueStateRow> {
+  final int id;
+  final String division;
+  final int weekId;
+  final int weeklyXp;
+  final int streakCurrent;
+  final int streakRecord;
+  final int? lastActiveDay;
+  final int totalWorkouts;
+  final int totalPrs;
+  const LeagueStateRow({
+    required this.id,
+    required this.division,
+    required this.weekId,
+    required this.weeklyXp,
+    required this.streakCurrent,
+    required this.streakRecord,
+    this.lastActiveDay,
+    required this.totalWorkouts,
+    required this.totalPrs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['division'] = Variable<String>(division);
+    map['week_id'] = Variable<int>(weekId);
+    map['weekly_xp'] = Variable<int>(weeklyXp);
+    map['streak_current'] = Variable<int>(streakCurrent);
+    map['streak_record'] = Variable<int>(streakRecord);
+    if (!nullToAbsent || lastActiveDay != null) {
+      map['last_active_day'] = Variable<int>(lastActiveDay);
+    }
+    map['total_workouts'] = Variable<int>(totalWorkouts);
+    map['total_prs'] = Variable<int>(totalPrs);
+    return map;
+  }
+
+  LeagueStatesCompanion toCompanion(bool nullToAbsent) {
+    return LeagueStatesCompanion(
+      id: Value(id),
+      division: Value(division),
+      weekId: Value(weekId),
+      weeklyXp: Value(weeklyXp),
+      streakCurrent: Value(streakCurrent),
+      streakRecord: Value(streakRecord),
+      lastActiveDay: lastActiveDay == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastActiveDay),
+      totalWorkouts: Value(totalWorkouts),
+      totalPrs: Value(totalPrs),
+    );
+  }
+
+  factory LeagueStateRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return LeagueStateRow(
+      id: serializer.fromJson<int>(json['id']),
+      division: serializer.fromJson<String>(json['division']),
+      weekId: serializer.fromJson<int>(json['weekId']),
+      weeklyXp: serializer.fromJson<int>(json['weeklyXp']),
+      streakCurrent: serializer.fromJson<int>(json['streakCurrent']),
+      streakRecord: serializer.fromJson<int>(json['streakRecord']),
+      lastActiveDay: serializer.fromJson<int?>(json['lastActiveDay']),
+      totalWorkouts: serializer.fromJson<int>(json['totalWorkouts']),
+      totalPrs: serializer.fromJson<int>(json['totalPrs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'division': serializer.toJson<String>(division),
+      'weekId': serializer.toJson<int>(weekId),
+      'weeklyXp': serializer.toJson<int>(weeklyXp),
+      'streakCurrent': serializer.toJson<int>(streakCurrent),
+      'streakRecord': serializer.toJson<int>(streakRecord),
+      'lastActiveDay': serializer.toJson<int?>(lastActiveDay),
+      'totalWorkouts': serializer.toJson<int>(totalWorkouts),
+      'totalPrs': serializer.toJson<int>(totalPrs),
+    };
+  }
+
+  LeagueStateRow copyWith({
+    int? id,
+    String? division,
+    int? weekId,
+    int? weeklyXp,
+    int? streakCurrent,
+    int? streakRecord,
+    Value<int?> lastActiveDay = const Value.absent(),
+    int? totalWorkouts,
+    int? totalPrs,
+  }) => LeagueStateRow(
+    id: id ?? this.id,
+    division: division ?? this.division,
+    weekId: weekId ?? this.weekId,
+    weeklyXp: weeklyXp ?? this.weeklyXp,
+    streakCurrent: streakCurrent ?? this.streakCurrent,
+    streakRecord: streakRecord ?? this.streakRecord,
+    lastActiveDay: lastActiveDay.present
+        ? lastActiveDay.value
+        : this.lastActiveDay,
+    totalWorkouts: totalWorkouts ?? this.totalWorkouts,
+    totalPrs: totalPrs ?? this.totalPrs,
+  );
+  LeagueStateRow copyWithCompanion(LeagueStatesCompanion data) {
+    return LeagueStateRow(
+      id: data.id.present ? data.id.value : this.id,
+      division: data.division.present ? data.division.value : this.division,
+      weekId: data.weekId.present ? data.weekId.value : this.weekId,
+      weeklyXp: data.weeklyXp.present ? data.weeklyXp.value : this.weeklyXp,
+      streakCurrent: data.streakCurrent.present
+          ? data.streakCurrent.value
+          : this.streakCurrent,
+      streakRecord: data.streakRecord.present
+          ? data.streakRecord.value
+          : this.streakRecord,
+      lastActiveDay: data.lastActiveDay.present
+          ? data.lastActiveDay.value
+          : this.lastActiveDay,
+      totalWorkouts: data.totalWorkouts.present
+          ? data.totalWorkouts.value
+          : this.totalWorkouts,
+      totalPrs: data.totalPrs.present ? data.totalPrs.value : this.totalPrs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LeagueStateRow(')
+          ..write('id: $id, ')
+          ..write('division: $division, ')
+          ..write('weekId: $weekId, ')
+          ..write('weeklyXp: $weeklyXp, ')
+          ..write('streakCurrent: $streakCurrent, ')
+          ..write('streakRecord: $streakRecord, ')
+          ..write('lastActiveDay: $lastActiveDay, ')
+          ..write('totalWorkouts: $totalWorkouts, ')
+          ..write('totalPrs: $totalPrs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    division,
+    weekId,
+    weeklyXp,
+    streakCurrent,
+    streakRecord,
+    lastActiveDay,
+    totalWorkouts,
+    totalPrs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is LeagueStateRow &&
+          other.id == this.id &&
+          other.division == this.division &&
+          other.weekId == this.weekId &&
+          other.weeklyXp == this.weeklyXp &&
+          other.streakCurrent == this.streakCurrent &&
+          other.streakRecord == this.streakRecord &&
+          other.lastActiveDay == this.lastActiveDay &&
+          other.totalWorkouts == this.totalWorkouts &&
+          other.totalPrs == this.totalPrs);
+}
+
+class LeagueStatesCompanion extends UpdateCompanion<LeagueStateRow> {
+  final Value<int> id;
+  final Value<String> division;
+  final Value<int> weekId;
+  final Value<int> weeklyXp;
+  final Value<int> streakCurrent;
+  final Value<int> streakRecord;
+  final Value<int?> lastActiveDay;
+  final Value<int> totalWorkouts;
+  final Value<int> totalPrs;
+  const LeagueStatesCompanion({
+    this.id = const Value.absent(),
+    this.division = const Value.absent(),
+    this.weekId = const Value.absent(),
+    this.weeklyXp = const Value.absent(),
+    this.streakCurrent = const Value.absent(),
+    this.streakRecord = const Value.absent(),
+    this.lastActiveDay = const Value.absent(),
+    this.totalWorkouts = const Value.absent(),
+    this.totalPrs = const Value.absent(),
+  });
+  LeagueStatesCompanion.insert({
+    this.id = const Value.absent(),
+    this.division = const Value.absent(),
+    this.weekId = const Value.absent(),
+    this.weeklyXp = const Value.absent(),
+    this.streakCurrent = const Value.absent(),
+    this.streakRecord = const Value.absent(),
+    this.lastActiveDay = const Value.absent(),
+    this.totalWorkouts = const Value.absent(),
+    this.totalPrs = const Value.absent(),
+  });
+  static Insertable<LeagueStateRow> custom({
+    Expression<int>? id,
+    Expression<String>? division,
+    Expression<int>? weekId,
+    Expression<int>? weeklyXp,
+    Expression<int>? streakCurrent,
+    Expression<int>? streakRecord,
+    Expression<int>? lastActiveDay,
+    Expression<int>? totalWorkouts,
+    Expression<int>? totalPrs,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (division != null) 'division': division,
+      if (weekId != null) 'week_id': weekId,
+      if (weeklyXp != null) 'weekly_xp': weeklyXp,
+      if (streakCurrent != null) 'streak_current': streakCurrent,
+      if (streakRecord != null) 'streak_record': streakRecord,
+      if (lastActiveDay != null) 'last_active_day': lastActiveDay,
+      if (totalWorkouts != null) 'total_workouts': totalWorkouts,
+      if (totalPrs != null) 'total_prs': totalPrs,
+    });
+  }
+
+  LeagueStatesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? division,
+    Value<int>? weekId,
+    Value<int>? weeklyXp,
+    Value<int>? streakCurrent,
+    Value<int>? streakRecord,
+    Value<int?>? lastActiveDay,
+    Value<int>? totalWorkouts,
+    Value<int>? totalPrs,
+  }) {
+    return LeagueStatesCompanion(
+      id: id ?? this.id,
+      division: division ?? this.division,
+      weekId: weekId ?? this.weekId,
+      weeklyXp: weeklyXp ?? this.weeklyXp,
+      streakCurrent: streakCurrent ?? this.streakCurrent,
+      streakRecord: streakRecord ?? this.streakRecord,
+      lastActiveDay: lastActiveDay ?? this.lastActiveDay,
+      totalWorkouts: totalWorkouts ?? this.totalWorkouts,
+      totalPrs: totalPrs ?? this.totalPrs,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (division.present) {
+      map['division'] = Variable<String>(division.value);
+    }
+    if (weekId.present) {
+      map['week_id'] = Variable<int>(weekId.value);
+    }
+    if (weeklyXp.present) {
+      map['weekly_xp'] = Variable<int>(weeklyXp.value);
+    }
+    if (streakCurrent.present) {
+      map['streak_current'] = Variable<int>(streakCurrent.value);
+    }
+    if (streakRecord.present) {
+      map['streak_record'] = Variable<int>(streakRecord.value);
+    }
+    if (lastActiveDay.present) {
+      map['last_active_day'] = Variable<int>(lastActiveDay.value);
+    }
+    if (totalWorkouts.present) {
+      map['total_workouts'] = Variable<int>(totalWorkouts.value);
+    }
+    if (totalPrs.present) {
+      map['total_prs'] = Variable<int>(totalPrs.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LeagueStatesCompanion(')
+          ..write('id: $id, ')
+          ..write('division: $division, ')
+          ..write('weekId: $weekId, ')
+          ..write('weeklyXp: $weeklyXp, ')
+          ..write('streakCurrent: $streakCurrent, ')
+          ..write('streakRecord: $streakRecord, ')
+          ..write('lastActiveDay: $lastActiveDay, ')
+          ..write('totalWorkouts: $totalWorkouts, ')
+          ..write('totalPrs: $totalPrs')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $XpEntriesTable extends XpEntries
+    with TableInfo<$XpEntriesTable, XpEntryRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $XpEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _weekIdMeta = const VerificationMeta('weekId');
+  @override
+  late final GeneratedColumn<int> weekId = GeneratedColumn<int>(
+    'week_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sourceMeta = const VerificationMeta('source');
+  @override
+  late final GeneratedColumn<String> source = GeneratedColumn<String>(
+    'source',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _amountMeta = const VerificationMeta('amount');
+  @override
+  late final GeneratedColumn<int> amount = GeneratedColumn<int>(
+    'amount',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, weekId, source, amount, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'xp_entries';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<XpEntryRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('week_id')) {
+      context.handle(
+        _weekIdMeta,
+        weekId.isAcceptableOrUnknown(data['week_id']!, _weekIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_weekIdMeta);
+    }
+    if (data.containsKey('source')) {
+      context.handle(
+        _sourceMeta,
+        source.isAcceptableOrUnknown(data['source']!, _sourceMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sourceMeta);
+    }
+    if (data.containsKey('amount')) {
+      context.handle(
+        _amountMeta,
+        amount.isAcceptableOrUnknown(data['amount']!, _amountMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_amountMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  XpEntryRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return XpEntryRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      weekId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}week_id'],
+      )!,
+      source: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source'],
+      )!,
+      amount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $XpEntriesTable createAlias(String alias) {
+    return $XpEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class XpEntryRow extends DataClass implements Insertable<XpEntryRow> {
+  final int id;
+  final int weekId;
+  final String source;
+  final int amount;
+  final DateTime createdAt;
+  const XpEntryRow({
+    required this.id,
+    required this.weekId,
+    required this.source,
+    required this.amount,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['week_id'] = Variable<int>(weekId);
+    map['source'] = Variable<String>(source);
+    map['amount'] = Variable<int>(amount);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  XpEntriesCompanion toCompanion(bool nullToAbsent) {
+    return XpEntriesCompanion(
+      id: Value(id),
+      weekId: Value(weekId),
+      source: Value(source),
+      amount: Value(amount),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory XpEntryRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return XpEntryRow(
+      id: serializer.fromJson<int>(json['id']),
+      weekId: serializer.fromJson<int>(json['weekId']),
+      source: serializer.fromJson<String>(json['source']),
+      amount: serializer.fromJson<int>(json['amount']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'weekId': serializer.toJson<int>(weekId),
+      'source': serializer.toJson<String>(source),
+      'amount': serializer.toJson<int>(amount),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  XpEntryRow copyWith({
+    int? id,
+    int? weekId,
+    String? source,
+    int? amount,
+    DateTime? createdAt,
+  }) => XpEntryRow(
+    id: id ?? this.id,
+    weekId: weekId ?? this.weekId,
+    source: source ?? this.source,
+    amount: amount ?? this.amount,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  XpEntryRow copyWithCompanion(XpEntriesCompanion data) {
+    return XpEntryRow(
+      id: data.id.present ? data.id.value : this.id,
+      weekId: data.weekId.present ? data.weekId.value : this.weekId,
+      source: data.source.present ? data.source.value : this.source,
+      amount: data.amount.present ? data.amount.value : this.amount,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('XpEntryRow(')
+          ..write('id: $id, ')
+          ..write('weekId: $weekId, ')
+          ..write('source: $source, ')
+          ..write('amount: $amount, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, weekId, source, amount, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is XpEntryRow &&
+          other.id == this.id &&
+          other.weekId == this.weekId &&
+          other.source == this.source &&
+          other.amount == this.amount &&
+          other.createdAt == this.createdAt);
+}
+
+class XpEntriesCompanion extends UpdateCompanion<XpEntryRow> {
+  final Value<int> id;
+  final Value<int> weekId;
+  final Value<String> source;
+  final Value<int> amount;
+  final Value<DateTime> createdAt;
+  const XpEntriesCompanion({
+    this.id = const Value.absent(),
+    this.weekId = const Value.absent(),
+    this.source = const Value.absent(),
+    this.amount = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  XpEntriesCompanion.insert({
+    this.id = const Value.absent(),
+    required int weekId,
+    required String source,
+    required int amount,
+    required DateTime createdAt,
+  }) : weekId = Value(weekId),
+       source = Value(source),
+       amount = Value(amount),
+       createdAt = Value(createdAt);
+  static Insertable<XpEntryRow> custom({
+    Expression<int>? id,
+    Expression<int>? weekId,
+    Expression<String>? source,
+    Expression<int>? amount,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (weekId != null) 'week_id': weekId,
+      if (source != null) 'source': source,
+      if (amount != null) 'amount': amount,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  XpEntriesCompanion copyWith({
+    Value<int>? id,
+    Value<int>? weekId,
+    Value<String>? source,
+    Value<int>? amount,
+    Value<DateTime>? createdAt,
+  }) {
+    return XpEntriesCompanion(
+      id: id ?? this.id,
+      weekId: weekId ?? this.weekId,
+      source: source ?? this.source,
+      amount: amount ?? this.amount,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (weekId.present) {
+      map['week_id'] = Variable<int>(weekId.value);
+    }
+    if (source.present) {
+      map['source'] = Variable<String>(source.value);
+    }
+    if (amount.present) {
+      map['amount'] = Variable<int>(amount.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('XpEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('weekId: $weekId, ')
+          ..write('source: $source, ')
+          ..write('amount: $amount, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AchievementsTable extends Achievements
+    with TableInfo<$AchievementsTable, AchievementRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AchievementsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+    'type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _unlockedAtMeta = const VerificationMeta(
+    'unlockedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> unlockedAt = GeneratedColumn<DateTime>(
+    'unlocked_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [type, unlockedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'achievements';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AchievementRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('type')) {
+      context.handle(
+        _typeMeta,
+        type.isAcceptableOrUnknown(data['type']!, _typeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('unlocked_at')) {
+      context.handle(
+        _unlockedAtMeta,
+        unlockedAt.isAcceptableOrUnknown(data['unlocked_at']!, _unlockedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_unlockedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {type};
+  @override
+  AchievementRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AchievementRow(
+      type: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}type'],
+      )!,
+      unlockedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}unlocked_at'],
+      )!,
+    );
+  }
+
+  @override
+  $AchievementsTable createAlias(String alias) {
+    return $AchievementsTable(attachedDatabase, alias);
+  }
+}
+
+class AchievementRow extends DataClass implements Insertable<AchievementRow> {
+  final String type;
+  final DateTime unlockedAt;
+  const AchievementRow({required this.type, required this.unlockedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['type'] = Variable<String>(type);
+    map['unlocked_at'] = Variable<DateTime>(unlockedAt);
+    return map;
+  }
+
+  AchievementsCompanion toCompanion(bool nullToAbsent) {
+    return AchievementsCompanion(
+      type: Value(type),
+      unlockedAt: Value(unlockedAt),
+    );
+  }
+
+  factory AchievementRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AchievementRow(
+      type: serializer.fromJson<String>(json['type']),
+      unlockedAt: serializer.fromJson<DateTime>(json['unlockedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'type': serializer.toJson<String>(type),
+      'unlockedAt': serializer.toJson<DateTime>(unlockedAt),
+    };
+  }
+
+  AchievementRow copyWith({String? type, DateTime? unlockedAt}) =>
+      AchievementRow(
+        type: type ?? this.type,
+        unlockedAt: unlockedAt ?? this.unlockedAt,
+      );
+  AchievementRow copyWithCompanion(AchievementsCompanion data) {
+    return AchievementRow(
+      type: data.type.present ? data.type.value : this.type,
+      unlockedAt: data.unlockedAt.present
+          ? data.unlockedAt.value
+          : this.unlockedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AchievementRow(')
+          ..write('type: $type, ')
+          ..write('unlockedAt: $unlockedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(type, unlockedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AchievementRow &&
+          other.type == this.type &&
+          other.unlockedAt == this.unlockedAt);
+}
+
+class AchievementsCompanion extends UpdateCompanion<AchievementRow> {
+  final Value<String> type;
+  final Value<DateTime> unlockedAt;
+  final Value<int> rowid;
+  const AchievementsCompanion({
+    this.type = const Value.absent(),
+    this.unlockedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AchievementsCompanion.insert({
+    required String type,
+    required DateTime unlockedAt,
+    this.rowid = const Value.absent(),
+  }) : type = Value(type),
+       unlockedAt = Value(unlockedAt);
+  static Insertable<AchievementRow> custom({
+    Expression<String>? type,
+    Expression<DateTime>? unlockedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (type != null) 'type': type,
+      if (unlockedAt != null) 'unlocked_at': unlockedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AchievementsCompanion copyWith({
+    Value<String>? type,
+    Value<DateTime>? unlockedAt,
+    Value<int>? rowid,
+  }) {
+    return AchievementsCompanion(
+      type: type ?? this.type,
+      unlockedAt: unlockedAt ?? this.unlockedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (unlockedAt.present) {
+      map['unlocked_at'] = Variable<DateTime>(unlockedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AchievementsCompanion(')
+          ..write('type: $type, ')
+          ..write('unlockedAt: $unlockedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$FraguaDatabase extends GeneratedDatabase {
   _$FraguaDatabase(QueryExecutor e) : super(e);
   $FraguaDatabaseManager get managers => $FraguaDatabaseManager(this);
@@ -2312,6 +3425,9 @@ abstract class _$FraguaDatabase extends GeneratedDatabase {
   late final $PlansTable plans = $PlansTable(this);
   late final $ExerciseStatesTable exerciseStates = $ExerciseStatesTable(this);
   late final $GuidedStatesTable guidedStates = $GuidedStatesTable(this);
+  late final $LeagueStatesTable leagueStates = $LeagueStatesTable(this);
+  late final $XpEntriesTable xpEntries = $XpEntriesTable(this);
+  late final $AchievementsTable achievements = $AchievementsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2322,6 +3438,9 @@ abstract class _$FraguaDatabase extends GeneratedDatabase {
     plans,
     exerciseStates,
     guidedStates,
+    leagueStates,
+    xpEntries,
+    achievements,
   ];
 }
 
@@ -3529,6 +4648,631 @@ typedef $$GuidedStatesTableProcessedTableManager =
       GuidedStateRow,
       PrefetchHooks Function()
     >;
+typedef $$LeagueStatesTableCreateCompanionBuilder =
+    LeagueStatesCompanion Function({
+      Value<int> id,
+      Value<String> division,
+      Value<int> weekId,
+      Value<int> weeklyXp,
+      Value<int> streakCurrent,
+      Value<int> streakRecord,
+      Value<int?> lastActiveDay,
+      Value<int> totalWorkouts,
+      Value<int> totalPrs,
+    });
+typedef $$LeagueStatesTableUpdateCompanionBuilder =
+    LeagueStatesCompanion Function({
+      Value<int> id,
+      Value<String> division,
+      Value<int> weekId,
+      Value<int> weeklyXp,
+      Value<int> streakCurrent,
+      Value<int> streakRecord,
+      Value<int?> lastActiveDay,
+      Value<int> totalWorkouts,
+      Value<int> totalPrs,
+    });
+
+class $$LeagueStatesTableFilterComposer
+    extends Composer<_$FraguaDatabase, $LeagueStatesTable> {
+  $$LeagueStatesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get division => $composableBuilder(
+    column: $table.division,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get weekId => $composableBuilder(
+    column: $table.weekId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get weeklyXp => $composableBuilder(
+    column: $table.weeklyXp,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get streakCurrent => $composableBuilder(
+    column: $table.streakCurrent,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get streakRecord => $composableBuilder(
+    column: $table.streakRecord,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lastActiveDay => $composableBuilder(
+    column: $table.lastActiveDay,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalWorkouts => $composableBuilder(
+    column: $table.totalWorkouts,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalPrs => $composableBuilder(
+    column: $table.totalPrs,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$LeagueStatesTableOrderingComposer
+    extends Composer<_$FraguaDatabase, $LeagueStatesTable> {
+  $$LeagueStatesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get division => $composableBuilder(
+    column: $table.division,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get weekId => $composableBuilder(
+    column: $table.weekId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get weeklyXp => $composableBuilder(
+    column: $table.weeklyXp,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get streakCurrent => $composableBuilder(
+    column: $table.streakCurrent,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get streakRecord => $composableBuilder(
+    column: $table.streakRecord,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lastActiveDay => $composableBuilder(
+    column: $table.lastActiveDay,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalWorkouts => $composableBuilder(
+    column: $table.totalWorkouts,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalPrs => $composableBuilder(
+    column: $table.totalPrs,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$LeagueStatesTableAnnotationComposer
+    extends Composer<_$FraguaDatabase, $LeagueStatesTable> {
+  $$LeagueStatesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get division =>
+      $composableBuilder(column: $table.division, builder: (column) => column);
+
+  GeneratedColumn<int> get weekId =>
+      $composableBuilder(column: $table.weekId, builder: (column) => column);
+
+  GeneratedColumn<int> get weeklyXp =>
+      $composableBuilder(column: $table.weeklyXp, builder: (column) => column);
+
+  GeneratedColumn<int> get streakCurrent => $composableBuilder(
+    column: $table.streakCurrent,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get streakRecord => $composableBuilder(
+    column: $table.streakRecord,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get lastActiveDay => $composableBuilder(
+    column: $table.lastActiveDay,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get totalWorkouts => $composableBuilder(
+    column: $table.totalWorkouts,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get totalPrs =>
+      $composableBuilder(column: $table.totalPrs, builder: (column) => column);
+}
+
+class $$LeagueStatesTableTableManager
+    extends
+        RootTableManager<
+          _$FraguaDatabase,
+          $LeagueStatesTable,
+          LeagueStateRow,
+          $$LeagueStatesTableFilterComposer,
+          $$LeagueStatesTableOrderingComposer,
+          $$LeagueStatesTableAnnotationComposer,
+          $$LeagueStatesTableCreateCompanionBuilder,
+          $$LeagueStatesTableUpdateCompanionBuilder,
+          (
+            LeagueStateRow,
+            BaseReferences<
+              _$FraguaDatabase,
+              $LeagueStatesTable,
+              LeagueStateRow
+            >,
+          ),
+          LeagueStateRow,
+          PrefetchHooks Function()
+        > {
+  $$LeagueStatesTableTableManager(_$FraguaDatabase db, $LeagueStatesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$LeagueStatesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$LeagueStatesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$LeagueStatesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> division = const Value.absent(),
+                Value<int> weekId = const Value.absent(),
+                Value<int> weeklyXp = const Value.absent(),
+                Value<int> streakCurrent = const Value.absent(),
+                Value<int> streakRecord = const Value.absent(),
+                Value<int?> lastActiveDay = const Value.absent(),
+                Value<int> totalWorkouts = const Value.absent(),
+                Value<int> totalPrs = const Value.absent(),
+              }) => LeagueStatesCompanion(
+                id: id,
+                division: division,
+                weekId: weekId,
+                weeklyXp: weeklyXp,
+                streakCurrent: streakCurrent,
+                streakRecord: streakRecord,
+                lastActiveDay: lastActiveDay,
+                totalWorkouts: totalWorkouts,
+                totalPrs: totalPrs,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> division = const Value.absent(),
+                Value<int> weekId = const Value.absent(),
+                Value<int> weeklyXp = const Value.absent(),
+                Value<int> streakCurrent = const Value.absent(),
+                Value<int> streakRecord = const Value.absent(),
+                Value<int?> lastActiveDay = const Value.absent(),
+                Value<int> totalWorkouts = const Value.absent(),
+                Value<int> totalPrs = const Value.absent(),
+              }) => LeagueStatesCompanion.insert(
+                id: id,
+                division: division,
+                weekId: weekId,
+                weeklyXp: weeklyXp,
+                streakCurrent: streakCurrent,
+                streakRecord: streakRecord,
+                lastActiveDay: lastActiveDay,
+                totalWorkouts: totalWorkouts,
+                totalPrs: totalPrs,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$LeagueStatesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$FraguaDatabase,
+      $LeagueStatesTable,
+      LeagueStateRow,
+      $$LeagueStatesTableFilterComposer,
+      $$LeagueStatesTableOrderingComposer,
+      $$LeagueStatesTableAnnotationComposer,
+      $$LeagueStatesTableCreateCompanionBuilder,
+      $$LeagueStatesTableUpdateCompanionBuilder,
+      (
+        LeagueStateRow,
+        BaseReferences<_$FraguaDatabase, $LeagueStatesTable, LeagueStateRow>,
+      ),
+      LeagueStateRow,
+      PrefetchHooks Function()
+    >;
+typedef $$XpEntriesTableCreateCompanionBuilder =
+    XpEntriesCompanion Function({
+      Value<int> id,
+      required int weekId,
+      required String source,
+      required int amount,
+      required DateTime createdAt,
+    });
+typedef $$XpEntriesTableUpdateCompanionBuilder =
+    XpEntriesCompanion Function({
+      Value<int> id,
+      Value<int> weekId,
+      Value<String> source,
+      Value<int> amount,
+      Value<DateTime> createdAt,
+    });
+
+class $$XpEntriesTableFilterComposer
+    extends Composer<_$FraguaDatabase, $XpEntriesTable> {
+  $$XpEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get weekId => $composableBuilder(
+    column: $table.weekId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get source => $composableBuilder(
+    column: $table.source,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amount => $composableBuilder(
+    column: $table.amount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$XpEntriesTableOrderingComposer
+    extends Composer<_$FraguaDatabase, $XpEntriesTable> {
+  $$XpEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get weekId => $composableBuilder(
+    column: $table.weekId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get source => $composableBuilder(
+    column: $table.source,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amount => $composableBuilder(
+    column: $table.amount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$XpEntriesTableAnnotationComposer
+    extends Composer<_$FraguaDatabase, $XpEntriesTable> {
+  $$XpEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get weekId =>
+      $composableBuilder(column: $table.weekId, builder: (column) => column);
+
+  GeneratedColumn<String> get source =>
+      $composableBuilder(column: $table.source, builder: (column) => column);
+
+  GeneratedColumn<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$XpEntriesTableTableManager
+    extends
+        RootTableManager<
+          _$FraguaDatabase,
+          $XpEntriesTable,
+          XpEntryRow,
+          $$XpEntriesTableFilterComposer,
+          $$XpEntriesTableOrderingComposer,
+          $$XpEntriesTableAnnotationComposer,
+          $$XpEntriesTableCreateCompanionBuilder,
+          $$XpEntriesTableUpdateCompanionBuilder,
+          (
+            XpEntryRow,
+            BaseReferences<_$FraguaDatabase, $XpEntriesTable, XpEntryRow>,
+          ),
+          XpEntryRow,
+          PrefetchHooks Function()
+        > {
+  $$XpEntriesTableTableManager(_$FraguaDatabase db, $XpEntriesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$XpEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$XpEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$XpEntriesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> weekId = const Value.absent(),
+                Value<String> source = const Value.absent(),
+                Value<int> amount = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => XpEntriesCompanion(
+                id: id,
+                weekId: weekId,
+                source: source,
+                amount: amount,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int weekId,
+                required String source,
+                required int amount,
+                required DateTime createdAt,
+              }) => XpEntriesCompanion.insert(
+                id: id,
+                weekId: weekId,
+                source: source,
+                amount: amount,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$XpEntriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$FraguaDatabase,
+      $XpEntriesTable,
+      XpEntryRow,
+      $$XpEntriesTableFilterComposer,
+      $$XpEntriesTableOrderingComposer,
+      $$XpEntriesTableAnnotationComposer,
+      $$XpEntriesTableCreateCompanionBuilder,
+      $$XpEntriesTableUpdateCompanionBuilder,
+      (
+        XpEntryRow,
+        BaseReferences<_$FraguaDatabase, $XpEntriesTable, XpEntryRow>,
+      ),
+      XpEntryRow,
+      PrefetchHooks Function()
+    >;
+typedef $$AchievementsTableCreateCompanionBuilder =
+    AchievementsCompanion Function({
+      required String type,
+      required DateTime unlockedAt,
+      Value<int> rowid,
+    });
+typedef $$AchievementsTableUpdateCompanionBuilder =
+    AchievementsCompanion Function({
+      Value<String> type,
+      Value<DateTime> unlockedAt,
+      Value<int> rowid,
+    });
+
+class $$AchievementsTableFilterComposer
+    extends Composer<_$FraguaDatabase, $AchievementsTable> {
+  $$AchievementsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get type => $composableBuilder(
+    column: $table.type,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get unlockedAt => $composableBuilder(
+    column: $table.unlockedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$AchievementsTableOrderingComposer
+    extends Composer<_$FraguaDatabase, $AchievementsTable> {
+  $$AchievementsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get type => $composableBuilder(
+    column: $table.type,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get unlockedAt => $composableBuilder(
+    column: $table.unlockedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$AchievementsTableAnnotationComposer
+    extends Composer<_$FraguaDatabase, $AchievementsTable> {
+  $$AchievementsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get unlockedAt => $composableBuilder(
+    column: $table.unlockedAt,
+    builder: (column) => column,
+  );
+}
+
+class $$AchievementsTableTableManager
+    extends
+        RootTableManager<
+          _$FraguaDatabase,
+          $AchievementsTable,
+          AchievementRow,
+          $$AchievementsTableFilterComposer,
+          $$AchievementsTableOrderingComposer,
+          $$AchievementsTableAnnotationComposer,
+          $$AchievementsTableCreateCompanionBuilder,
+          $$AchievementsTableUpdateCompanionBuilder,
+          (
+            AchievementRow,
+            BaseReferences<
+              _$FraguaDatabase,
+              $AchievementsTable,
+              AchievementRow
+            >,
+          ),
+          AchievementRow,
+          PrefetchHooks Function()
+        > {
+  $$AchievementsTableTableManager(_$FraguaDatabase db, $AchievementsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AchievementsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AchievementsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AchievementsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> type = const Value.absent(),
+                Value<DateTime> unlockedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AchievementsCompanion(
+                type: type,
+                unlockedAt: unlockedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String type,
+                required DateTime unlockedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => AchievementsCompanion.insert(
+                type: type,
+                unlockedAt: unlockedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$AchievementsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$FraguaDatabase,
+      $AchievementsTable,
+      AchievementRow,
+      $$AchievementsTableFilterComposer,
+      $$AchievementsTableOrderingComposer,
+      $$AchievementsTableAnnotationComposer,
+      $$AchievementsTableCreateCompanionBuilder,
+      $$AchievementsTableUpdateCompanionBuilder,
+      (
+        AchievementRow,
+        BaseReferences<_$FraguaDatabase, $AchievementsTable, AchievementRow>,
+      ),
+      AchievementRow,
+      PrefetchHooks Function()
+    >;
 
 class $FraguaDatabaseManager {
   final _$FraguaDatabase _db;
@@ -3543,4 +5287,10 @@ class $FraguaDatabaseManager {
       $$ExerciseStatesTableTableManager(_db, _db.exerciseStates);
   $$GuidedStatesTableTableManager get guidedStates =>
       $$GuidedStatesTableTableManager(_db, _db.guidedStates);
+  $$LeagueStatesTableTableManager get leagueStates =>
+      $$LeagueStatesTableTableManager(_db, _db.leagueStates);
+  $$XpEntriesTableTableManager get xpEntries =>
+      $$XpEntriesTableTableManager(_db, _db.xpEntries);
+  $$AchievementsTableTableManager get achievements =>
+      $$AchievementsTableTableManager(_db, _db.achievements);
 }
