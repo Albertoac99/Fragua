@@ -40,4 +40,40 @@ void main() {
     expect(find.text('Sentadilla'), findsOneWidget);
     expect(find.textContaining('3 x 6-12'), findsOneWidget);
   });
+
+  testWidgets('un día guiado con ejercicios muestra "Empezar"', (tester) async {
+    final db = FraguaDatabase(NativeDatabase.memory());
+    addTearDown(db.close);
+    await db.savePlan(const Plan(
+      split: SplitType.fullBody,
+      days: [
+        PlanDay(
+          name: 'Circuito 1',
+          type: DayType.guided,
+          format: WorkoutFormat.circuit,
+          rounds: 3,
+          exercises: [
+            PlanExercise(
+              exerciseId: 'a',
+              exerciseName: 'Burpee',
+              sets: 1,
+              repLow: 10,
+              repHigh: 15,
+              restSeconds: 20,
+              workSeconds: 40,
+            ),
+          ],
+        ),
+      ],
+    ));
+
+    await tester.pumpWidget(ProviderScope(
+      overrides: [databaseProvider.overrideWithValue(db)],
+      child: const MaterialApp(home: PlanScreen()),
+    ));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Burpee'), findsOneWidget);
+    expect(find.text('Empezar'), findsOneWidget);
+  });
 }

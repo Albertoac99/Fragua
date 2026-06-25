@@ -73,11 +73,9 @@ class GuidedSessionController extends ChangeNotifier {
     required this.voice,
     required PlanDay day,
     required List<SessionStep> timeline,
-    required int initialWorkSeconds,
-    required int initialRounds,
-  })  : _initialWorkSeconds = initialWorkSeconds,
-        _initialRounds = initialRounds,
-        _stepsPerRound = day.exercises.isEmpty ? 1 : day.exercises.length * 2,
+    required this.initialWorkSeconds,
+    required this.initialRounds,
+  })  : _stepsPerRound = day.exercises.isEmpty ? 1 : day.exercises.length * 2,
         _state = GuidedSessionState(
           day: day,
           timeline: timeline,
@@ -92,8 +90,8 @@ class GuidedSessionController extends ChangeNotifier {
 
   final FraguaDatabase db;
   final VoiceCues voice;
-  final int _initialWorkSeconds;
-  final int _initialRounds;
+  final int initialWorkSeconds;
+  final int initialRounds;
   final int _stepsPerRound;
 
   GuidedSessionState _state;
@@ -166,8 +164,8 @@ class GuidedSessionController extends ChangeNotifier {
     final prev = await db.guidedState(_state.day.name);
     final result = decideGuidedProgression(
       completedAll: completedAll,
-      workSeconds: _initialWorkSeconds,
-      rounds: _initialRounds,
+      workSeconds: initialWorkSeconds,
+      rounds: initialRounds,
       streak: prev?.streak ?? 0,
     );
     await db.saveGuidedState(

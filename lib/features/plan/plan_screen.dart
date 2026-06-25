@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../core/models/plan.dart';
+import '../workout/guided_session_screen.dart';
 import '../workout/session_screen.dart';
 
 class PlanScreen extends ConsumerWidget {
@@ -55,12 +56,16 @@ class _DayCard extends StatelessWidget {
                   ],
                 ),
               ),
-            if (day.type == DayType.strength && day.exercises.isNotEmpty)
+            if (day.exercises.isNotEmpty)
               Align(
                 alignment: Alignment.centerRight,
                 child: FilledButton(
                   onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => SessionScreen(day: day)),
+                    MaterialPageRoute(
+                      builder: (_) => day.type == DayType.guided
+                          ? GuidedSessionScreen(day: day)
+                          : SessionScreen(day: day),
+                    ),
                   ),
                   child: const Text('Empezar'),
                 ),
