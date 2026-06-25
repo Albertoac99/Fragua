@@ -59,12 +59,23 @@ class Plans extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-@DriftDatabase(tables: [Exercises, UserProfiles, Plans])
+@DataClassName('ExerciseStateRow')
+class ExerciseStates extends Table {
+  TextColumn get exerciseId => text().named('exercise_id')();
+  RealColumn get currentWeight => real().named('current_weight')();
+  IntColumn get stallCount =>
+      integer().named('stall_count').withDefault(const Constant(0))();
+
+  @override
+  Set<Column> get primaryKey => {exerciseId};
+}
+
+@DriftDatabase(tables: [Exercises, UserProfiles, Plans, ExerciseStates])
 class FraguaDatabase extends _$FraguaDatabase {
   FraguaDatabase(super.e);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -76,6 +87,7 @@ class FraguaDatabase extends _$FraguaDatabase {
           // las tablas de usuario que falten según la versión de origen.
           if (from < 1) await m.createTable(userProfiles);
           if (from < 2) await m.createTable(plans);
+          if (from < 3) await m.createTable(exerciseStates);
         },
       );
 
@@ -151,5 +163,24 @@ class FraguaDatabase extends _$FraguaDatabase {
         await (select(plans)..where((t) => t.id.equals(0))).getSingleOrNull();
     if (row == null) return null;
     return Plan.fromJson((jsonDecode(row.data) as Map).cast<String, Object?>());
+  }
+
+  Future<({double weight, int stall})?> exerciseState(String exerciseId) async {
+    final row = await (select(exerciseStates)
+          ..where((t) => t.exerciseId.equals(exerciseId)))
+        .getSingleOrNull();
+    if (row == null) return null;
+    return (weight: row.currentWeight, stall: row.stallCount);
+  }
+
+  Future<void> saveExerciseState(
+      String exerciseId, double weight, int stall) async {
+    await into(exerciseStates).insertOnConflictUpdate(
+      ExerciseStatesCompanion.insert(
+        exerciseId: exerciseId,
+        currentWeight: weight,
+        stallCount: Value(stall),
+      ),
+    );
   }
 }

@@ -1715,12 +1715,290 @@ class PlansCompanion extends UpdateCompanion<PlanRow> {
   }
 }
 
+class $ExerciseStatesTable extends ExerciseStates
+    with TableInfo<$ExerciseStatesTable, ExerciseStateRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ExerciseStatesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _exerciseIdMeta = const VerificationMeta(
+    'exerciseId',
+  );
+  @override
+  late final GeneratedColumn<String> exerciseId = GeneratedColumn<String>(
+    'exercise_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currentWeightMeta = const VerificationMeta(
+    'currentWeight',
+  );
+  @override
+  late final GeneratedColumn<double> currentWeight = GeneratedColumn<double>(
+    'current_weight',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _stallCountMeta = const VerificationMeta(
+    'stallCount',
+  );
+  @override
+  late final GeneratedColumn<int> stallCount = GeneratedColumn<int>(
+    'stall_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [exerciseId, currentWeight, stallCount];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'exercise_states';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ExerciseStateRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('exercise_id')) {
+      context.handle(
+        _exerciseIdMeta,
+        exerciseId.isAcceptableOrUnknown(data['exercise_id']!, _exerciseIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_exerciseIdMeta);
+    }
+    if (data.containsKey('current_weight')) {
+      context.handle(
+        _currentWeightMeta,
+        currentWeight.isAcceptableOrUnknown(
+          data['current_weight']!,
+          _currentWeightMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_currentWeightMeta);
+    }
+    if (data.containsKey('stall_count')) {
+      context.handle(
+        _stallCountMeta,
+        stallCount.isAcceptableOrUnknown(data['stall_count']!, _stallCountMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {exerciseId};
+  @override
+  ExerciseStateRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ExerciseStateRow(
+      exerciseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}exercise_id'],
+      )!,
+      currentWeight: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}current_weight'],
+      )!,
+      stallCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}stall_count'],
+      )!,
+    );
+  }
+
+  @override
+  $ExerciseStatesTable createAlias(String alias) {
+    return $ExerciseStatesTable(attachedDatabase, alias);
+  }
+}
+
+class ExerciseStateRow extends DataClass
+    implements Insertable<ExerciseStateRow> {
+  final String exerciseId;
+  final double currentWeight;
+  final int stallCount;
+  const ExerciseStateRow({
+    required this.exerciseId,
+    required this.currentWeight,
+    required this.stallCount,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['exercise_id'] = Variable<String>(exerciseId);
+    map['current_weight'] = Variable<double>(currentWeight);
+    map['stall_count'] = Variable<int>(stallCount);
+    return map;
+  }
+
+  ExerciseStatesCompanion toCompanion(bool nullToAbsent) {
+    return ExerciseStatesCompanion(
+      exerciseId: Value(exerciseId),
+      currentWeight: Value(currentWeight),
+      stallCount: Value(stallCount),
+    );
+  }
+
+  factory ExerciseStateRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ExerciseStateRow(
+      exerciseId: serializer.fromJson<String>(json['exerciseId']),
+      currentWeight: serializer.fromJson<double>(json['currentWeight']),
+      stallCount: serializer.fromJson<int>(json['stallCount']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'exerciseId': serializer.toJson<String>(exerciseId),
+      'currentWeight': serializer.toJson<double>(currentWeight),
+      'stallCount': serializer.toJson<int>(stallCount),
+    };
+  }
+
+  ExerciseStateRow copyWith({
+    String? exerciseId,
+    double? currentWeight,
+    int? stallCount,
+  }) => ExerciseStateRow(
+    exerciseId: exerciseId ?? this.exerciseId,
+    currentWeight: currentWeight ?? this.currentWeight,
+    stallCount: stallCount ?? this.stallCount,
+  );
+  ExerciseStateRow copyWithCompanion(ExerciseStatesCompanion data) {
+    return ExerciseStateRow(
+      exerciseId: data.exerciseId.present
+          ? data.exerciseId.value
+          : this.exerciseId,
+      currentWeight: data.currentWeight.present
+          ? data.currentWeight.value
+          : this.currentWeight,
+      stallCount: data.stallCount.present
+          ? data.stallCount.value
+          : this.stallCount,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExerciseStateRow(')
+          ..write('exerciseId: $exerciseId, ')
+          ..write('currentWeight: $currentWeight, ')
+          ..write('stallCount: $stallCount')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(exerciseId, currentWeight, stallCount);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ExerciseStateRow &&
+          other.exerciseId == this.exerciseId &&
+          other.currentWeight == this.currentWeight &&
+          other.stallCount == this.stallCount);
+}
+
+class ExerciseStatesCompanion extends UpdateCompanion<ExerciseStateRow> {
+  final Value<String> exerciseId;
+  final Value<double> currentWeight;
+  final Value<int> stallCount;
+  final Value<int> rowid;
+  const ExerciseStatesCompanion({
+    this.exerciseId = const Value.absent(),
+    this.currentWeight = const Value.absent(),
+    this.stallCount = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ExerciseStatesCompanion.insert({
+    required String exerciseId,
+    required double currentWeight,
+    this.stallCount = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : exerciseId = Value(exerciseId),
+       currentWeight = Value(currentWeight);
+  static Insertable<ExerciseStateRow> custom({
+    Expression<String>? exerciseId,
+    Expression<double>? currentWeight,
+    Expression<int>? stallCount,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (exerciseId != null) 'exercise_id': exerciseId,
+      if (currentWeight != null) 'current_weight': currentWeight,
+      if (stallCount != null) 'stall_count': stallCount,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ExerciseStatesCompanion copyWith({
+    Value<String>? exerciseId,
+    Value<double>? currentWeight,
+    Value<int>? stallCount,
+    Value<int>? rowid,
+  }) {
+    return ExerciseStatesCompanion(
+      exerciseId: exerciseId ?? this.exerciseId,
+      currentWeight: currentWeight ?? this.currentWeight,
+      stallCount: stallCount ?? this.stallCount,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (exerciseId.present) {
+      map['exercise_id'] = Variable<String>(exerciseId.value);
+    }
+    if (currentWeight.present) {
+      map['current_weight'] = Variable<double>(currentWeight.value);
+    }
+    if (stallCount.present) {
+      map['stall_count'] = Variable<int>(stallCount.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExerciseStatesCompanion(')
+          ..write('exerciseId: $exerciseId, ')
+          ..write('currentWeight: $currentWeight, ')
+          ..write('stallCount: $stallCount, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$FraguaDatabase extends GeneratedDatabase {
   _$FraguaDatabase(QueryExecutor e) : super(e);
   $FraguaDatabaseManager get managers => $FraguaDatabaseManager(this);
   late final $ExercisesTable exercises = $ExercisesTable(this);
   late final $UserProfilesTable userProfiles = $UserProfilesTable(this);
   late final $PlansTable plans = $PlansTable(this);
+  late final $ExerciseStatesTable exerciseStates = $ExerciseStatesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1729,6 +2007,7 @@ abstract class _$FraguaDatabase extends GeneratedDatabase {
     exercises,
     userProfiles,
     plans,
+    exerciseStates,
   ];
 }
 
@@ -2571,6 +2850,184 @@ typedef $$PlansTableProcessedTableManager =
       PlanRow,
       PrefetchHooks Function()
     >;
+typedef $$ExerciseStatesTableCreateCompanionBuilder =
+    ExerciseStatesCompanion Function({
+      required String exerciseId,
+      required double currentWeight,
+      Value<int> stallCount,
+      Value<int> rowid,
+    });
+typedef $$ExerciseStatesTableUpdateCompanionBuilder =
+    ExerciseStatesCompanion Function({
+      Value<String> exerciseId,
+      Value<double> currentWeight,
+      Value<int> stallCount,
+      Value<int> rowid,
+    });
+
+class $$ExerciseStatesTableFilterComposer
+    extends Composer<_$FraguaDatabase, $ExerciseStatesTable> {
+  $$ExerciseStatesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get exerciseId => $composableBuilder(
+    column: $table.exerciseId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get currentWeight => $composableBuilder(
+    column: $table.currentWeight,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get stallCount => $composableBuilder(
+    column: $table.stallCount,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ExerciseStatesTableOrderingComposer
+    extends Composer<_$FraguaDatabase, $ExerciseStatesTable> {
+  $$ExerciseStatesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get exerciseId => $composableBuilder(
+    column: $table.exerciseId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get currentWeight => $composableBuilder(
+    column: $table.currentWeight,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get stallCount => $composableBuilder(
+    column: $table.stallCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ExerciseStatesTableAnnotationComposer
+    extends Composer<_$FraguaDatabase, $ExerciseStatesTable> {
+  $$ExerciseStatesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get exerciseId => $composableBuilder(
+    column: $table.exerciseId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get currentWeight => $composableBuilder(
+    column: $table.currentWeight,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get stallCount => $composableBuilder(
+    column: $table.stallCount,
+    builder: (column) => column,
+  );
+}
+
+class $$ExerciseStatesTableTableManager
+    extends
+        RootTableManager<
+          _$FraguaDatabase,
+          $ExerciseStatesTable,
+          ExerciseStateRow,
+          $$ExerciseStatesTableFilterComposer,
+          $$ExerciseStatesTableOrderingComposer,
+          $$ExerciseStatesTableAnnotationComposer,
+          $$ExerciseStatesTableCreateCompanionBuilder,
+          $$ExerciseStatesTableUpdateCompanionBuilder,
+          (
+            ExerciseStateRow,
+            BaseReferences<
+              _$FraguaDatabase,
+              $ExerciseStatesTable,
+              ExerciseStateRow
+            >,
+          ),
+          ExerciseStateRow,
+          PrefetchHooks Function()
+        > {
+  $$ExerciseStatesTableTableManager(
+    _$FraguaDatabase db,
+    $ExerciseStatesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ExerciseStatesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExerciseStatesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExerciseStatesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> exerciseId = const Value.absent(),
+                Value<double> currentWeight = const Value.absent(),
+                Value<int> stallCount = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ExerciseStatesCompanion(
+                exerciseId: exerciseId,
+                currentWeight: currentWeight,
+                stallCount: stallCount,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String exerciseId,
+                required double currentWeight,
+                Value<int> stallCount = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ExerciseStatesCompanion.insert(
+                exerciseId: exerciseId,
+                currentWeight: currentWeight,
+                stallCount: stallCount,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ExerciseStatesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$FraguaDatabase,
+      $ExerciseStatesTable,
+      ExerciseStateRow,
+      $$ExerciseStatesTableFilterComposer,
+      $$ExerciseStatesTableOrderingComposer,
+      $$ExerciseStatesTableAnnotationComposer,
+      $$ExerciseStatesTableCreateCompanionBuilder,
+      $$ExerciseStatesTableUpdateCompanionBuilder,
+      (
+        ExerciseStateRow,
+        BaseReferences<
+          _$FraguaDatabase,
+          $ExerciseStatesTable,
+          ExerciseStateRow
+        >,
+      ),
+      ExerciseStateRow,
+      PrefetchHooks Function()
+    >;
 
 class $FraguaDatabaseManager {
   final _$FraguaDatabase _db;
@@ -2581,4 +3038,6 @@ class $FraguaDatabaseManager {
       $$UserProfilesTableTableManager(_db, _db.userProfiles);
   $$PlansTableTableManager get plans =>
       $$PlansTableTableManager(_db, _db.plans);
+  $$ExerciseStatesTableTableManager get exerciseStates =>
+      $$ExerciseStatesTableTableManager(_db, _db.exerciseStates);
 }
