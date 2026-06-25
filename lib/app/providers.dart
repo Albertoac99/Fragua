@@ -45,6 +45,11 @@ final mediaCacheProvider =
 final leaguesServiceProvider = Provider<LeaguesService>(
     (ref) => LeaguesService(ref.read(databaseProvider)));
 
+/// Serie temporal de una medida corporal (peso, cintura, …) por `kind`.
+final bodyMetricProvider =
+    FutureProvider.family<List<({DateTime at, double value})>, String>(
+        (ref, kind) => ref.watch(databaseProvider).loadBodyMetrics(kind));
+
 class ResolvedMedia {
   final MediaKind kind;
   final List<File> files; // gif: 1 archivo · frames: N · text: vacío
