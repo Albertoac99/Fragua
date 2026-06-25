@@ -7,6 +7,7 @@ import '../core/media/exercise_media.dart';
 import '../core/models/exercise.dart';
 import '../core/models/plan.dart';
 import '../core/models/user_profile.dart';
+import '../core/stats/exercise_log.dart';
 import '../features/leagues/leagues_service.dart';
 import '../services/media/media_cache.dart';
 import '../services/voice/voice_cues.dart';
@@ -49,6 +50,15 @@ final leaguesServiceProvider = Provider<LeaguesService>(
 final bodyMetricProvider =
     FutureProvider.family<List<({DateTime at, double value})>, String>(
         (ref, kind) => ref.watch(databaseProvider).loadBodyMetrics(kind));
+
+/// Ejercicios que tienen al menos un log (para el selector de estadísticas).
+final loggedExercisesProvider =
+    FutureProvider<List<({String id, String name})>>(
+        (ref) => ref.watch(databaseProvider).loggedExercises());
+
+/// Logs de un ejercicio (orden ascendente por fecha).
+final exerciseLogsProvider = FutureProvider.family<List<ExerciseLog>, String>(
+    (ref, id) => ref.watch(databaseProvider).loadExerciseLogs(id));
 
 class ResolvedMedia {
   final MediaKind kind;
