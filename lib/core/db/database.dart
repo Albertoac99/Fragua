@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 
 import '../models/enums.dart';
 import '../models/exercise.dart';
+import '../models/plan.dart';
 import '../models/user_profile.dart';
 
 part 'database.g.dart';
@@ -49,12 +50,21 @@ class UserProfiles extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-@DriftDatabase(tables: [Exercises, UserProfiles])
+@DataClassName('PlanRow')
+class Plans extends Table {
+  IntColumn get id => integer().named('id').withDefault(const Constant(0))();
+  TextColumn get data => text().named('data')(); // JSON del Plan
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DriftDatabase(tables: [Exercises, UserProfiles, Plans])
 class FraguaDatabase extends _$FraguaDatabase {
   FraguaDatabase(super.e);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -62,9 +72,10 @@ class FraguaDatabase extends _$FraguaDatabase {
           await m.createAll();
         },
         onUpgrade: (m, from, to) async {
-          // El asset bundleado solo trae `exercises` (user_version=0).
-          // Crea las tablas de usuario que falten.
-          await m.createTable(userProfiles);
+          // El asset bundleado solo trae `exercises` (user_version=0); crea
+          // las tablas de usuario que falten según la versión de origen.
+          if (from < 1) await m.createTable(userProfiles);
+          if (from < 2) await m.createTable(plans);
         },
       );
 
@@ -127,5 +138,18 @@ class FraguaDatabase extends _$FraguaDatabase {
               'variation_rank': r.variationRank,
             }))
         .toList();
+  }
+
+  Future<void> savePlan(Plan plan) async {
+    await into(plans).insertOnConflictUpdate(
+      PlansCompanion.insert(id: const Value(0), data: jsonEncode(plan.toJson())),
+    );
+  }
+
+  Future<Plan?> loadPlan() async {
+    final row =
+        await (select(plans)..where((t) => t.id.equals(0))).getSingleOrNull();
+    if (row == null) return null;
+    return Plan.fromJson((jsonDecode(row.data) as Map).cast<String, Object?>());
   }
 }
