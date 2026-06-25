@@ -47,6 +47,14 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
 
   Future<void> _finish() async {
     await _c!.finish();
+    final st = _c!.state;
+    final units = st.loggedReps.values.fold<int>(0, (a, b) => a + b.length);
+    await ref.read(leaguesServiceProvider).awardForSession(
+          unitsCompleted: units,
+          prCount: _c!.prCount,
+          completed: true,
+          now: DateTime.now(),
+        );
     if (mounted) Navigator.of(context).pop();
   }
 

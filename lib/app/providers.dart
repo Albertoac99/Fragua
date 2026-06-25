@@ -7,6 +7,7 @@ import '../core/media/exercise_media.dart';
 import '../core/models/exercise.dart';
 import '../core/models/plan.dart';
 import '../core/models/user_profile.dart';
+import '../features/leagues/leagues_service.dart';
 import '../services/media/media_cache.dart';
 import '../services/voice/voice_cues.dart';
 
@@ -39,6 +40,10 @@ final voiceProvider = Provider<VoiceCues>((ref) => const SilentVoiceCues());
 /// Override con HttpMediaCache() en main(); NoopMediaCache por defecto (tests).
 final mediaCacheProvider =
     Provider<MediaCache>((ref) => const NoopMediaCache());
+
+/// Servicio de ligas (premio de XP/racha/logros al terminar la sesión).
+final leaguesServiceProvider = Provider<LeaguesService>(
+    (ref) => LeaguesService(ref.read(databaseProvider)));
 
 class ResolvedMedia {
   final MediaKind kind;

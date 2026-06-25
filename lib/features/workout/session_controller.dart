@@ -56,6 +56,10 @@ class WorkoutSessionController extends ChangeNotifier {
   WorkoutSessionState _state;
   WorkoutSessionState get state => _state;
 
+  int _prCount = 0;
+  /// Nº de ejercicios cuyo peso de trabajo subió en [finish] (PRs de la sesión).
+  int get prCount => _prCount;
+
   void setWeight(double weight) {
     _state = _state.copyWith(
       weights: {..._state.weights, _state.current.exerciseId: weight},
@@ -92,6 +96,7 @@ class WorkoutSessionController extends ChangeNotifier {
         increment: 2.5,
         stallCount: prev?.stall ?? 0,
       );
+      if (result.nextWeight > weight) _prCount++;
       await db.saveExerciseState(
           e.exerciseId, result.nextWeight, result.nextStallCount);
     }

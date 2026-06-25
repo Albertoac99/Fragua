@@ -68,6 +68,16 @@ class _GuidedSessionScreenState extends ConsumerState<GuidedSessionScreen> {
 
   Future<void> _finishAndLeave() async {
     await _c!.finish();
+    final st = _c!.state;
+    final units = st.isAmrap
+        ? st.completedRounds
+        : st.timeline.where((s) => s.kind == StepKind.work).length;
+    await ref.read(leaguesServiceProvider).awardForSession(
+          unitsCompleted: units,
+          prCount: 0,
+          completed: st.finished,
+          now: DateTime.now(),
+        );
     if (mounted) Navigator.of(context).pop();
   }
 
