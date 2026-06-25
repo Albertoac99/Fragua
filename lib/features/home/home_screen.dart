@@ -5,6 +5,7 @@ import '../../app/providers.dart';
 import '../leagues/leagues_screen.dart';
 import '../plan/plan_screen.dart';
 import '../settings/settings_screen.dart';
+import '../stats/stats_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -56,6 +57,15 @@ class HomeScreen extends ConsumerWidget {
               ),
               icon: const Icon(Icons.emoji_events),
               label: const Text('Liga'),
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              key: const Key('stats-button'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const StatsScreen()),
+              ),
+              icon: const Icon(Icons.show_chart),
+              label: const Text('Progreso'),
             ),
           ],
         ),
