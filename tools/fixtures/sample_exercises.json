@@ -1,0 +1,41 @@
+[
+  {
+    "id": "Barbell_Squat",
+    "name": "Barbell Squat",
+    "force": "push",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "equipment": "barbell",
+    "primaryMuscles": ["quadriceps"],
+    "secondaryMuscles": ["glutes", "hamstrings"],
+    "instructions": ["Baja controlando", "Sube con fuerza"],
+    "category": "strength",
+    "images": ["Barbell_Squat/0.jpg", "Barbell_Squat/1.jpg"]
+  },
+  {
+    "id": "Plank",
+    "name": "Plank",
+    "force": "static",
+    "level": "beginner",
+    "mechanic": null,
+    "equipment": "body only",
+    "primaryMuscles": ["abdominals"],
+    "secondaryMuscles": [],
+    "instructions": ["Aguanta la posición"],
+    "category": "strength",
+    "images": []
+  },
+  {
+    "id": "Jump_Rope",
+    "name": "Jump Rope",
+    "force": null,
+    "level": "beginner",
+    "mechanic": null,
+    "equipment": "other",
+    "primaryMuscles": ["calves"],
+    "secondaryMuscles": [],
+    "instructions": ["Salta"],
+    "category": "cardio",
+    "images": []
+  }
+]
