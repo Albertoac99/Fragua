@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../plan/plan_screen.dart';
+import '../settings/settings_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -12,7 +13,18 @@ class HomeScreen extends ConsumerWidget {
     final profile = ref.watch(profileProvider).valueOrNull;
     final count = ref.watch(exerciseCountProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text('Fragua', key: Key('home-title'))),
+      appBar: AppBar(
+        title: const Text('Fragua', key: Key('home-title')),
+        actions: [
+          IconButton(
+            key: const Key('settings-button'),
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const SettingsScreen()),
+            ),
+          ),
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
