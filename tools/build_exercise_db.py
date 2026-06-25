@@ -4,10 +4,12 @@ Uso: python build_exercise_db.py [--out ../assets/exercise_db.sqlite]
 """
 import argparse
 import json
+import re
 import sqlite3
 from pathlib import Path
 
 DATA_URL = "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json"
+GIF_DATA_URL = "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/data/exercises.json"
 
 _EQUIPMENT_MAP = {
     None: "bodyweight",
@@ -42,8 +44,23 @@ def infer_modality(equipment):
     return "strength" if equipment in _STRENGTH_EQUIPMENT else "both"
 
 
-def normalize_exercise(raw):
+def normalize_name(name):
+    return re.sub(r"[^a-z0-9]", "", name.lower())
+
+
+def build_gif_index(records):
+    """nombre normalizado -> gif_url (relativo). Se queda con la 1ª aparición."""
+    idx = {}
+    for rec in records:
+        idx.setdefault(normalize_name(rec["name"]), rec["gif_url"])
+    return idx
+
+
+def normalize_exercise(raw, gif_index=None):
     equipment = map_equipment(raw.get("equipment"))
+    gif_key = None
+    if gif_index:
+        gif_key = gif_index.get(normalize_name(raw["name"]))
     return {
         "id": raw["id"],
         "name": raw["name"],
@@ -56,7 +73,7 @@ def normalize_exercise(raw):
         "secondary_muscles": json.dumps(raw.get("secondaryMuscles", [])),
         "instructions": json.dumps(raw.get("instructions", [])),
         "static_images": json.dumps(raw.get("images", [])),
-        "gif_key": None,
+        "gif_key": gif_key,
         "modality": infer_modality(equipment),
         "variation_group": None,
         "variation_rank": 0,
@@ -109,6 +126,13 @@ def _load_remote():
     return resp.json()
 
 
+def _load_gif_dataset():
+    import requests
+    resp = requests.get(GIF_DATA_URL, timeout=60)
+    resp.raise_for_status()
+    return resp.json()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument(
@@ -117,9 +141,11 @@ def main():
     )
     args = ap.parse_args()
     raw = _load_remote()
-    rows = [normalize_exercise(r) for r in raw]
+    gif_index = build_gif_index(_load_gif_dataset())
+    rows = [normalize_exercise(r, gif_index) for r in raw]
+    matched = sum(1 for r in rows if r["gif_key"])
     out = build_db(rows, args.out)
-    print(f"Escritos {len(rows)} ejercicios en {out}")
+    print(f"Escritos {len(rows)} ejercicios en {out} ({matched} con GIF)")
 
 
 if __name__ == "__main__":

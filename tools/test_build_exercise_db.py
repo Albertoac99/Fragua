@@ -71,3 +71,30 @@ def test_build_db_creates_queryable_file(tmp_path):
     assert count == 3
     assert "Barbell Squat" in names
     assert cols == b.COLUMNS  # mismo orden y nombres que el esquema drift
+
+
+def test_normalize_name():
+    assert b.normalize_name("3/4 Sit-Up") == "34situp"
+    assert b.normalize_name("45° side bend") == "45sidebend"
+    assert b.normalize_name("Barbell  Bench Press") == "barbellbenchpress"
+
+
+def test_build_gif_index_dedupes():
+    idx = b.build_gif_index([
+        {"name": "Air Bike", "gif_url": "videos/0003.gif"},
+        {"name": "air bike", "gif_url": "videos/dup.gif"},  # se ignora (ya existe)
+    ])
+    assert idx == {"airbike": "videos/0003.gif"}
+
+
+def test_normalize_exercise_sets_gif_key_on_match():
+    raw = json.loads(FIXTURE.read_text())[0]  # Barbell Squat
+    idx = b.build_gif_index([{"name": "barbell squat", "gif_url": "videos/sq.gif"}])
+    row = b.normalize_exercise(raw, idx)
+    assert row["gif_key"] == "videos/sq.gif"
+
+
+def test_normalize_exercise_gif_key_none_when_no_match():
+    raw = json.loads(FIXTURE.read_text())[1]  # Plank
+    idx = b.build_gif_index([{"name": "barbell squat", "gif_url": "videos/sq.gif"}])
+    assert b.normalize_exercise(raw, idx)["gif_key"] is None
