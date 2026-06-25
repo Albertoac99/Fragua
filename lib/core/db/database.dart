@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:drift/drift.dart';
 
 import '../models/enums.dart';
+import '../models/exercise.dart';
 import '../models/user_profile.dart';
 
 part 'database.g.dart';
@@ -103,5 +104,28 @@ class FraguaDatabase extends _$FraguaDatabase {
           .toSet(),
       limitations: (jsonDecode(row.limitations) as List).cast<String>().toSet(),
     );
+  }
+
+  Future<List<Exercise>> loadExercises() async {
+    final rows = await select(exercises).get();
+    return rows
+        .map((r) => Exercise.fromDbRow({
+              'id': r.id,
+              'name': r.name,
+              'category': r.category,
+              'force': r.force,
+              'difficulty': r.difficulty,
+              'mechanic': r.mechanic,
+              'equipment': r.equipment,
+              'primary_muscles': r.primaryMuscles,
+              'secondary_muscles': r.secondaryMuscles,
+              'instructions': r.instructions,
+              'static_images': r.staticImages,
+              'gif_key': r.gifKey,
+              'modality': r.modality,
+              'variation_group': r.variationGroup,
+              'variation_rank': r.variationRank,
+            }))
+        .toList();
   }
 }
