@@ -89,6 +89,21 @@ void main() {
     expect(guided, 2);
   });
 
+  test('los días guiados llevan workSeconds; los de fuerza no', () {
+    final plan = const Coach().generate(
+      profile(goal: Goal.strength, days: 3, equip: {Equipment.bodyweight}),
+      catalog(),
+    );
+    final guided = plan.days.firstWhere((d) => d.type == DayType.guided);
+    expect(guided.exercises.first.workSeconds, 40);
+
+    final strengthPlan =
+        const Coach().generate(profile(goal: Goal.hypertrophy, days: 4), catalog());
+    final strength =
+        strengthPlan.days.firstWhere((d) => d.type == DayType.strength);
+    expect(strength.exercises.first.workSeconds, isNull);
+  });
+
   test('es determinista', () {
     final p = profile(goal: Goal.hypertrophy, days: 4);
     final a = const Coach().generate(p, catalog()).toJson();

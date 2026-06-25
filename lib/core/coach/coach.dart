@@ -79,6 +79,7 @@ class Coach {
             repLow: 10,
             repHigh: 15,
             restSeconds: 20,
+            workSeconds: 40,
           ));
         }
       }
