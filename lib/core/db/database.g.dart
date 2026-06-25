@@ -3417,6 +3417,814 @@ class AchievementsCompanion extends UpdateCompanion<AchievementRow> {
   }
 }
 
+class $ExerciseLogsTable extends ExerciseLogs
+    with TableInfo<$ExerciseLogsTable, ExerciseLogRow2> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ExerciseLogsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _exerciseIdMeta = const VerificationMeta(
+    'exerciseId',
+  );
+  @override
+  late final GeneratedColumn<String> exerciseId = GeneratedColumn<String>(
+    'exercise_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _exerciseNameMeta = const VerificationMeta(
+    'exerciseName',
+  );
+  @override
+  late final GeneratedColumn<String> exerciseName = GeneratedColumn<String>(
+    'exercise_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _performedAtMeta = const VerificationMeta(
+    'performedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> performedAt = GeneratedColumn<DateTime>(
+    'performed_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _weightMeta = const VerificationMeta('weight');
+  @override
+  late final GeneratedColumn<double> weight = GeneratedColumn<double>(
+    'weight',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _totalRepsMeta = const VerificationMeta(
+    'totalReps',
+  );
+  @override
+  late final GeneratedColumn<int> totalReps = GeneratedColumn<int>(
+    'total_reps',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _setsMeta = const VerificationMeta('sets');
+  @override
+  late final GeneratedColumn<int> sets = GeneratedColumn<int>(
+    'sets',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _maxRepsMeta = const VerificationMeta(
+    'maxReps',
+  );
+  @override
+  late final GeneratedColumn<int> maxReps = GeneratedColumn<int>(
+    'max_reps',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    exerciseId,
+    exerciseName,
+    performedAt,
+    weight,
+    totalReps,
+    sets,
+    maxReps,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'exercise_logs';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ExerciseLogRow2> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('exercise_id')) {
+      context.handle(
+        _exerciseIdMeta,
+        exerciseId.isAcceptableOrUnknown(data['exercise_id']!, _exerciseIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_exerciseIdMeta);
+    }
+    if (data.containsKey('exercise_name')) {
+      context.handle(
+        _exerciseNameMeta,
+        exerciseName.isAcceptableOrUnknown(
+          data['exercise_name']!,
+          _exerciseNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_exerciseNameMeta);
+    }
+    if (data.containsKey('performed_at')) {
+      context.handle(
+        _performedAtMeta,
+        performedAt.isAcceptableOrUnknown(
+          data['performed_at']!,
+          _performedAtMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_performedAtMeta);
+    }
+    if (data.containsKey('weight')) {
+      context.handle(
+        _weightMeta,
+        weight.isAcceptableOrUnknown(data['weight']!, _weightMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_weightMeta);
+    }
+    if (data.containsKey('total_reps')) {
+      context.handle(
+        _totalRepsMeta,
+        totalReps.isAcceptableOrUnknown(data['total_reps']!, _totalRepsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_totalRepsMeta);
+    }
+    if (data.containsKey('sets')) {
+      context.handle(
+        _setsMeta,
+        sets.isAcceptableOrUnknown(data['sets']!, _setsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_setsMeta);
+    }
+    if (data.containsKey('max_reps')) {
+      context.handle(
+        _maxRepsMeta,
+        maxReps.isAcceptableOrUnknown(data['max_reps']!, _maxRepsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_maxRepsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ExerciseLogRow2 map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ExerciseLogRow2(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      exerciseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}exercise_id'],
+      )!,
+      exerciseName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}exercise_name'],
+      )!,
+      performedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}performed_at'],
+      )!,
+      weight: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}weight'],
+      )!,
+      totalReps: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_reps'],
+      )!,
+      sets: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sets'],
+      )!,
+      maxReps: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}max_reps'],
+      )!,
+    );
+  }
+
+  @override
+  $ExerciseLogsTable createAlias(String alias) {
+    return $ExerciseLogsTable(attachedDatabase, alias);
+  }
+}
+
+class ExerciseLogRow2 extends DataClass implements Insertable<ExerciseLogRow2> {
+  final int id;
+  final String exerciseId;
+  final String exerciseName;
+  final DateTime performedAt;
+  final double weight;
+  final int totalReps;
+  final int sets;
+  final int maxReps;
+  const ExerciseLogRow2({
+    required this.id,
+    required this.exerciseId,
+    required this.exerciseName,
+    required this.performedAt,
+    required this.weight,
+    required this.totalReps,
+    required this.sets,
+    required this.maxReps,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['exercise_id'] = Variable<String>(exerciseId);
+    map['exercise_name'] = Variable<String>(exerciseName);
+    map['performed_at'] = Variable<DateTime>(performedAt);
+    map['weight'] = Variable<double>(weight);
+    map['total_reps'] = Variable<int>(totalReps);
+    map['sets'] = Variable<int>(sets);
+    map['max_reps'] = Variable<int>(maxReps);
+    return map;
+  }
+
+  ExerciseLogsCompanion toCompanion(bool nullToAbsent) {
+    return ExerciseLogsCompanion(
+      id: Value(id),
+      exerciseId: Value(exerciseId),
+      exerciseName: Value(exerciseName),
+      performedAt: Value(performedAt),
+      weight: Value(weight),
+      totalReps: Value(totalReps),
+      sets: Value(sets),
+      maxReps: Value(maxReps),
+    );
+  }
+
+  factory ExerciseLogRow2.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ExerciseLogRow2(
+      id: serializer.fromJson<int>(json['id']),
+      exerciseId: serializer.fromJson<String>(json['exerciseId']),
+      exerciseName: serializer.fromJson<String>(json['exerciseName']),
+      performedAt: serializer.fromJson<DateTime>(json['performedAt']),
+      weight: serializer.fromJson<double>(json['weight']),
+      totalReps: serializer.fromJson<int>(json['totalReps']),
+      sets: serializer.fromJson<int>(json['sets']),
+      maxReps: serializer.fromJson<int>(json['maxReps']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'exerciseId': serializer.toJson<String>(exerciseId),
+      'exerciseName': serializer.toJson<String>(exerciseName),
+      'performedAt': serializer.toJson<DateTime>(performedAt),
+      'weight': serializer.toJson<double>(weight),
+      'totalReps': serializer.toJson<int>(totalReps),
+      'sets': serializer.toJson<int>(sets),
+      'maxReps': serializer.toJson<int>(maxReps),
+    };
+  }
+
+  ExerciseLogRow2 copyWith({
+    int? id,
+    String? exerciseId,
+    String? exerciseName,
+    DateTime? performedAt,
+    double? weight,
+    int? totalReps,
+    int? sets,
+    int? maxReps,
+  }) => ExerciseLogRow2(
+    id: id ?? this.id,
+    exerciseId: exerciseId ?? this.exerciseId,
+    exerciseName: exerciseName ?? this.exerciseName,
+    performedAt: performedAt ?? this.performedAt,
+    weight: weight ?? this.weight,
+    totalReps: totalReps ?? this.totalReps,
+    sets: sets ?? this.sets,
+    maxReps: maxReps ?? this.maxReps,
+  );
+  ExerciseLogRow2 copyWithCompanion(ExerciseLogsCompanion data) {
+    return ExerciseLogRow2(
+      id: data.id.present ? data.id.value : this.id,
+      exerciseId: data.exerciseId.present
+          ? data.exerciseId.value
+          : this.exerciseId,
+      exerciseName: data.exerciseName.present
+          ? data.exerciseName.value
+          : this.exerciseName,
+      performedAt: data.performedAt.present
+          ? data.performedAt.value
+          : this.performedAt,
+      weight: data.weight.present ? data.weight.value : this.weight,
+      totalReps: data.totalReps.present ? data.totalReps.value : this.totalReps,
+      sets: data.sets.present ? data.sets.value : this.sets,
+      maxReps: data.maxReps.present ? data.maxReps.value : this.maxReps,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExerciseLogRow2(')
+          ..write('id: $id, ')
+          ..write('exerciseId: $exerciseId, ')
+          ..write('exerciseName: $exerciseName, ')
+          ..write('performedAt: $performedAt, ')
+          ..write('weight: $weight, ')
+          ..write('totalReps: $totalReps, ')
+          ..write('sets: $sets, ')
+          ..write('maxReps: $maxReps')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    exerciseId,
+    exerciseName,
+    performedAt,
+    weight,
+    totalReps,
+    sets,
+    maxReps,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ExerciseLogRow2 &&
+          other.id == this.id &&
+          other.exerciseId == this.exerciseId &&
+          other.exerciseName == this.exerciseName &&
+          other.performedAt == this.performedAt &&
+          other.weight == this.weight &&
+          other.totalReps == this.totalReps &&
+          other.sets == this.sets &&
+          other.maxReps == this.maxReps);
+}
+
+class ExerciseLogsCompanion extends UpdateCompanion<ExerciseLogRow2> {
+  final Value<int> id;
+  final Value<String> exerciseId;
+  final Value<String> exerciseName;
+  final Value<DateTime> performedAt;
+  final Value<double> weight;
+  final Value<int> totalReps;
+  final Value<int> sets;
+  final Value<int> maxReps;
+  const ExerciseLogsCompanion({
+    this.id = const Value.absent(),
+    this.exerciseId = const Value.absent(),
+    this.exerciseName = const Value.absent(),
+    this.performedAt = const Value.absent(),
+    this.weight = const Value.absent(),
+    this.totalReps = const Value.absent(),
+    this.sets = const Value.absent(),
+    this.maxReps = const Value.absent(),
+  });
+  ExerciseLogsCompanion.insert({
+    this.id = const Value.absent(),
+    required String exerciseId,
+    required String exerciseName,
+    required DateTime performedAt,
+    required double weight,
+    required int totalReps,
+    required int sets,
+    required int maxReps,
+  }) : exerciseId = Value(exerciseId),
+       exerciseName = Value(exerciseName),
+       performedAt = Value(performedAt),
+       weight = Value(weight),
+       totalReps = Value(totalReps),
+       sets = Value(sets),
+       maxReps = Value(maxReps);
+  static Insertable<ExerciseLogRow2> custom({
+    Expression<int>? id,
+    Expression<String>? exerciseId,
+    Expression<String>? exerciseName,
+    Expression<DateTime>? performedAt,
+    Expression<double>? weight,
+    Expression<int>? totalReps,
+    Expression<int>? sets,
+    Expression<int>? maxReps,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (exerciseId != null) 'exercise_id': exerciseId,
+      if (exerciseName != null) 'exercise_name': exerciseName,
+      if (performedAt != null) 'performed_at': performedAt,
+      if (weight != null) 'weight': weight,
+      if (totalReps != null) 'total_reps': totalReps,
+      if (sets != null) 'sets': sets,
+      if (maxReps != null) 'max_reps': maxReps,
+    });
+  }
+
+  ExerciseLogsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? exerciseId,
+    Value<String>? exerciseName,
+    Value<DateTime>? performedAt,
+    Value<double>? weight,
+    Value<int>? totalReps,
+    Value<int>? sets,
+    Value<int>? maxReps,
+  }) {
+    return ExerciseLogsCompanion(
+      id: id ?? this.id,
+      exerciseId: exerciseId ?? this.exerciseId,
+      exerciseName: exerciseName ?? this.exerciseName,
+      performedAt: performedAt ?? this.performedAt,
+      weight: weight ?? this.weight,
+      totalReps: totalReps ?? this.totalReps,
+      sets: sets ?? this.sets,
+      maxReps: maxReps ?? this.maxReps,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (exerciseId.present) {
+      map['exercise_id'] = Variable<String>(exerciseId.value);
+    }
+    if (exerciseName.present) {
+      map['exercise_name'] = Variable<String>(exerciseName.value);
+    }
+    if (performedAt.present) {
+      map['performed_at'] = Variable<DateTime>(performedAt.value);
+    }
+    if (weight.present) {
+      map['weight'] = Variable<double>(weight.value);
+    }
+    if (totalReps.present) {
+      map['total_reps'] = Variable<int>(totalReps.value);
+    }
+    if (sets.present) {
+      map['sets'] = Variable<int>(sets.value);
+    }
+    if (maxReps.present) {
+      map['max_reps'] = Variable<int>(maxReps.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExerciseLogsCompanion(')
+          ..write('id: $id, ')
+          ..write('exerciseId: $exerciseId, ')
+          ..write('exerciseName: $exerciseName, ')
+          ..write('performedAt: $performedAt, ')
+          ..write('weight: $weight, ')
+          ..write('totalReps: $totalReps, ')
+          ..write('sets: $sets, ')
+          ..write('maxReps: $maxReps')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $BodyMetricsTable extends BodyMetrics
+    with TableInfo<$BodyMetricsTable, BodyMetricRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BodyMetricsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  @override
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _valueMeta = const VerificationMeta('value');
+  @override
+  late final GeneratedColumn<double> value = GeneratedColumn<double>(
+    'value',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _measuredAtMeta = const VerificationMeta(
+    'measuredAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> measuredAt = GeneratedColumn<DateTime>(
+    'measured_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, kind, value, measuredAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'body_metrics';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<BodyMetricRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('kind')) {
+      context.handle(
+        _kindMeta,
+        kind.isAcceptableOrUnknown(data['kind']!, _kindMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_kindMeta);
+    }
+    if (data.containsKey('value')) {
+      context.handle(
+        _valueMeta,
+        value.isAcceptableOrUnknown(data['value']!, _valueMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_valueMeta);
+    }
+    if (data.containsKey('measured_at')) {
+      context.handle(
+        _measuredAtMeta,
+        measuredAt.isAcceptableOrUnknown(data['measured_at']!, _measuredAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_measuredAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  BodyMetricRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return BodyMetricRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      kind: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}kind'],
+      )!,
+      value: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}value'],
+      )!,
+      measuredAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}measured_at'],
+      )!,
+    );
+  }
+
+  @override
+  $BodyMetricsTable createAlias(String alias) {
+    return $BodyMetricsTable(attachedDatabase, alias);
+  }
+}
+
+class BodyMetricRow extends DataClass implements Insertable<BodyMetricRow> {
+  final int id;
+  final String kind;
+  final double value;
+  final DateTime measuredAt;
+  const BodyMetricRow({
+    required this.id,
+    required this.kind,
+    required this.value,
+    required this.measuredAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['kind'] = Variable<String>(kind);
+    map['value'] = Variable<double>(value);
+    map['measured_at'] = Variable<DateTime>(measuredAt);
+    return map;
+  }
+
+  BodyMetricsCompanion toCompanion(bool nullToAbsent) {
+    return BodyMetricsCompanion(
+      id: Value(id),
+      kind: Value(kind),
+      value: Value(value),
+      measuredAt: Value(measuredAt),
+    );
+  }
+
+  factory BodyMetricRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return BodyMetricRow(
+      id: serializer.fromJson<int>(json['id']),
+      kind: serializer.fromJson<String>(json['kind']),
+      value: serializer.fromJson<double>(json['value']),
+      measuredAt: serializer.fromJson<DateTime>(json['measuredAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'kind': serializer.toJson<String>(kind),
+      'value': serializer.toJson<double>(value),
+      'measuredAt': serializer.toJson<DateTime>(measuredAt),
+    };
+  }
+
+  BodyMetricRow copyWith({
+    int? id,
+    String? kind,
+    double? value,
+    DateTime? measuredAt,
+  }) => BodyMetricRow(
+    id: id ?? this.id,
+    kind: kind ?? this.kind,
+    value: value ?? this.value,
+    measuredAt: measuredAt ?? this.measuredAt,
+  );
+  BodyMetricRow copyWithCompanion(BodyMetricsCompanion data) {
+    return BodyMetricRow(
+      id: data.id.present ? data.id.value : this.id,
+      kind: data.kind.present ? data.kind.value : this.kind,
+      value: data.value.present ? data.value.value : this.value,
+      measuredAt: data.measuredAt.present
+          ? data.measuredAt.value
+          : this.measuredAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BodyMetricRow(')
+          ..write('id: $id, ')
+          ..write('kind: $kind, ')
+          ..write('value: $value, ')
+          ..write('measuredAt: $measuredAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, kind, value, measuredAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BodyMetricRow &&
+          other.id == this.id &&
+          other.kind == this.kind &&
+          other.value == this.value &&
+          other.measuredAt == this.measuredAt);
+}
+
+class BodyMetricsCompanion extends UpdateCompanion<BodyMetricRow> {
+  final Value<int> id;
+  final Value<String> kind;
+  final Value<double> value;
+  final Value<DateTime> measuredAt;
+  const BodyMetricsCompanion({
+    this.id = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.value = const Value.absent(),
+    this.measuredAt = const Value.absent(),
+  });
+  BodyMetricsCompanion.insert({
+    this.id = const Value.absent(),
+    required String kind,
+    required double value,
+    required DateTime measuredAt,
+  }) : kind = Value(kind),
+       value = Value(value),
+       measuredAt = Value(measuredAt);
+  static Insertable<BodyMetricRow> custom({
+    Expression<int>? id,
+    Expression<String>? kind,
+    Expression<double>? value,
+    Expression<DateTime>? measuredAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (kind != null) 'kind': kind,
+      if (value != null) 'value': value,
+      if (measuredAt != null) 'measured_at': measuredAt,
+    });
+  }
+
+  BodyMetricsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? kind,
+    Value<double>? value,
+    Value<DateTime>? measuredAt,
+  }) {
+    return BodyMetricsCompanion(
+      id: id ?? this.id,
+      kind: kind ?? this.kind,
+      value: value ?? this.value,
+      measuredAt: measuredAt ?? this.measuredAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
+    }
+    if (value.present) {
+      map['value'] = Variable<double>(value.value);
+    }
+    if (measuredAt.present) {
+      map['measured_at'] = Variable<DateTime>(measuredAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BodyMetricsCompanion(')
+          ..write('id: $id, ')
+          ..write('kind: $kind, ')
+          ..write('value: $value, ')
+          ..write('measuredAt: $measuredAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$FraguaDatabase extends GeneratedDatabase {
   _$FraguaDatabase(QueryExecutor e) : super(e);
   $FraguaDatabaseManager get managers => $FraguaDatabaseManager(this);
@@ -3428,6 +4236,8 @@ abstract class _$FraguaDatabase extends GeneratedDatabase {
   late final $LeagueStatesTable leagueStates = $LeagueStatesTable(this);
   late final $XpEntriesTable xpEntries = $XpEntriesTable(this);
   late final $AchievementsTable achievements = $AchievementsTable(this);
+  late final $ExerciseLogsTable exerciseLogs = $ExerciseLogsTable(this);
+  late final $BodyMetricsTable bodyMetrics = $BodyMetricsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3441,6 +4251,8 @@ abstract class _$FraguaDatabase extends GeneratedDatabase {
     leagueStates,
     xpEntries,
     achievements,
+    exerciseLogs,
+    bodyMetrics,
   ];
 }
 
@@ -5273,6 +6085,444 @@ typedef $$AchievementsTableProcessedTableManager =
       AchievementRow,
       PrefetchHooks Function()
     >;
+typedef $$ExerciseLogsTableCreateCompanionBuilder =
+    ExerciseLogsCompanion Function({
+      Value<int> id,
+      required String exerciseId,
+      required String exerciseName,
+      required DateTime performedAt,
+      required double weight,
+      required int totalReps,
+      required int sets,
+      required int maxReps,
+    });
+typedef $$ExerciseLogsTableUpdateCompanionBuilder =
+    ExerciseLogsCompanion Function({
+      Value<int> id,
+      Value<String> exerciseId,
+      Value<String> exerciseName,
+      Value<DateTime> performedAt,
+      Value<double> weight,
+      Value<int> totalReps,
+      Value<int> sets,
+      Value<int> maxReps,
+    });
+
+class $$ExerciseLogsTableFilterComposer
+    extends Composer<_$FraguaDatabase, $ExerciseLogsTable> {
+  $$ExerciseLogsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get exerciseId => $composableBuilder(
+    column: $table.exerciseId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get exerciseName => $composableBuilder(
+    column: $table.exerciseName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get performedAt => $composableBuilder(
+    column: $table.performedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get weight => $composableBuilder(
+    column: $table.weight,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalReps => $composableBuilder(
+    column: $table.totalReps,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get sets => $composableBuilder(
+    column: $table.sets,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get maxReps => $composableBuilder(
+    column: $table.maxReps,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ExerciseLogsTableOrderingComposer
+    extends Composer<_$FraguaDatabase, $ExerciseLogsTable> {
+  $$ExerciseLogsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get exerciseId => $composableBuilder(
+    column: $table.exerciseId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get exerciseName => $composableBuilder(
+    column: $table.exerciseName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get performedAt => $composableBuilder(
+    column: $table.performedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get weight => $composableBuilder(
+    column: $table.weight,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalReps => $composableBuilder(
+    column: $table.totalReps,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get sets => $composableBuilder(
+    column: $table.sets,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get maxReps => $composableBuilder(
+    column: $table.maxReps,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ExerciseLogsTableAnnotationComposer
+    extends Composer<_$FraguaDatabase, $ExerciseLogsTable> {
+  $$ExerciseLogsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get exerciseId => $composableBuilder(
+    column: $table.exerciseId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get exerciseName => $composableBuilder(
+    column: $table.exerciseName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get performedAt => $composableBuilder(
+    column: $table.performedAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get weight =>
+      $composableBuilder(column: $table.weight, builder: (column) => column);
+
+  GeneratedColumn<int> get totalReps =>
+      $composableBuilder(column: $table.totalReps, builder: (column) => column);
+
+  GeneratedColumn<int> get sets =>
+      $composableBuilder(column: $table.sets, builder: (column) => column);
+
+  GeneratedColumn<int> get maxReps =>
+      $composableBuilder(column: $table.maxReps, builder: (column) => column);
+}
+
+class $$ExerciseLogsTableTableManager
+    extends
+        RootTableManager<
+          _$FraguaDatabase,
+          $ExerciseLogsTable,
+          ExerciseLogRow2,
+          $$ExerciseLogsTableFilterComposer,
+          $$ExerciseLogsTableOrderingComposer,
+          $$ExerciseLogsTableAnnotationComposer,
+          $$ExerciseLogsTableCreateCompanionBuilder,
+          $$ExerciseLogsTableUpdateCompanionBuilder,
+          (
+            ExerciseLogRow2,
+            BaseReferences<
+              _$FraguaDatabase,
+              $ExerciseLogsTable,
+              ExerciseLogRow2
+            >,
+          ),
+          ExerciseLogRow2,
+          PrefetchHooks Function()
+        > {
+  $$ExerciseLogsTableTableManager(_$FraguaDatabase db, $ExerciseLogsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ExerciseLogsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExerciseLogsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExerciseLogsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> exerciseId = const Value.absent(),
+                Value<String> exerciseName = const Value.absent(),
+                Value<DateTime> performedAt = const Value.absent(),
+                Value<double> weight = const Value.absent(),
+                Value<int> totalReps = const Value.absent(),
+                Value<int> sets = const Value.absent(),
+                Value<int> maxReps = const Value.absent(),
+              }) => ExerciseLogsCompanion(
+                id: id,
+                exerciseId: exerciseId,
+                exerciseName: exerciseName,
+                performedAt: performedAt,
+                weight: weight,
+                totalReps: totalReps,
+                sets: sets,
+                maxReps: maxReps,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String exerciseId,
+                required String exerciseName,
+                required DateTime performedAt,
+                required double weight,
+                required int totalReps,
+                required int sets,
+                required int maxReps,
+              }) => ExerciseLogsCompanion.insert(
+                id: id,
+                exerciseId: exerciseId,
+                exerciseName: exerciseName,
+                performedAt: performedAt,
+                weight: weight,
+                totalReps: totalReps,
+                sets: sets,
+                maxReps: maxReps,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ExerciseLogsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$FraguaDatabase,
+      $ExerciseLogsTable,
+      ExerciseLogRow2,
+      $$ExerciseLogsTableFilterComposer,
+      $$ExerciseLogsTableOrderingComposer,
+      $$ExerciseLogsTableAnnotationComposer,
+      $$ExerciseLogsTableCreateCompanionBuilder,
+      $$ExerciseLogsTableUpdateCompanionBuilder,
+      (
+        ExerciseLogRow2,
+        BaseReferences<_$FraguaDatabase, $ExerciseLogsTable, ExerciseLogRow2>,
+      ),
+      ExerciseLogRow2,
+      PrefetchHooks Function()
+    >;
+typedef $$BodyMetricsTableCreateCompanionBuilder =
+    BodyMetricsCompanion Function({
+      Value<int> id,
+      required String kind,
+      required double value,
+      required DateTime measuredAt,
+    });
+typedef $$BodyMetricsTableUpdateCompanionBuilder =
+    BodyMetricsCompanion Function({
+      Value<int> id,
+      Value<String> kind,
+      Value<double> value,
+      Value<DateTime> measuredAt,
+    });
+
+class $$BodyMetricsTableFilterComposer
+    extends Composer<_$FraguaDatabase, $BodyMetricsTable> {
+  $$BodyMetricsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get value => $composableBuilder(
+    column: $table.value,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get measuredAt => $composableBuilder(
+    column: $table.measuredAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$BodyMetricsTableOrderingComposer
+    extends Composer<_$FraguaDatabase, $BodyMetricsTable> {
+  $$BodyMetricsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get value => $composableBuilder(
+    column: $table.value,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get measuredAt => $composableBuilder(
+    column: $table.measuredAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$BodyMetricsTableAnnotationComposer
+    extends Composer<_$FraguaDatabase, $BodyMetricsTable> {
+  $$BodyMetricsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => column);
+
+  GeneratedColumn<double> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get measuredAt => $composableBuilder(
+    column: $table.measuredAt,
+    builder: (column) => column,
+  );
+}
+
+class $$BodyMetricsTableTableManager
+    extends
+        RootTableManager<
+          _$FraguaDatabase,
+          $BodyMetricsTable,
+          BodyMetricRow,
+          $$BodyMetricsTableFilterComposer,
+          $$BodyMetricsTableOrderingComposer,
+          $$BodyMetricsTableAnnotationComposer,
+          $$BodyMetricsTableCreateCompanionBuilder,
+          $$BodyMetricsTableUpdateCompanionBuilder,
+          (
+            BodyMetricRow,
+            BaseReferences<_$FraguaDatabase, $BodyMetricsTable, BodyMetricRow>,
+          ),
+          BodyMetricRow,
+          PrefetchHooks Function()
+        > {
+  $$BodyMetricsTableTableManager(_$FraguaDatabase db, $BodyMetricsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$BodyMetricsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BodyMetricsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BodyMetricsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<double> value = const Value.absent(),
+                Value<DateTime> measuredAt = const Value.absent(),
+              }) => BodyMetricsCompanion(
+                id: id,
+                kind: kind,
+                value: value,
+                measuredAt: measuredAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String kind,
+                required double value,
+                required DateTime measuredAt,
+              }) => BodyMetricsCompanion.insert(
+                id: id,
+                kind: kind,
+                value: value,
+                measuredAt: measuredAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$BodyMetricsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$FraguaDatabase,
+      $BodyMetricsTable,
+      BodyMetricRow,
+      $$BodyMetricsTableFilterComposer,
+      $$BodyMetricsTableOrderingComposer,
+      $$BodyMetricsTableAnnotationComposer,
+      $$BodyMetricsTableCreateCompanionBuilder,
+      $$BodyMetricsTableUpdateCompanionBuilder,
+      (
+        BodyMetricRow,
+        BaseReferences<_$FraguaDatabase, $BodyMetricsTable, BodyMetricRow>,
+      ),
+      BodyMetricRow,
+      PrefetchHooks Function()
+    >;
 
 class $FraguaDatabaseManager {
   final _$FraguaDatabase _db;
@@ -5293,4 +6543,8 @@ class $FraguaDatabaseManager {
       $$XpEntriesTableTableManager(_db, _db.xpEntries);
   $$AchievementsTableTableManager get achievements =>
       $$AchievementsTableTableManager(_db, _db.achievements);
+  $$ExerciseLogsTableTableManager get exerciseLogs =>
+      $$ExerciseLogsTableTableManager(_db, _db.exerciseLogs);
+  $$BodyMetricsTableTableManager get bodyMetrics =>
+      $$BodyMetricsTableTableManager(_db, _db.bodyMetrics);
 }

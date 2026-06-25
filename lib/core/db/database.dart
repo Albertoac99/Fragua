@@ -6,6 +6,7 @@ import '../models/enums.dart';
 import '../models/exercise.dart';
 import '../models/plan.dart';
 import '../models/user_profile.dart';
+import '../stats/exercise_log.dart';
 
 part 'database.g.dart';
 
@@ -123,6 +124,26 @@ class Achievements extends Table {
   Set<Column> get primaryKey => {type};
 }
 
+@DataClassName('ExerciseLogRow2')
+class ExerciseLogs extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get exerciseId => text().named('exercise_id')();
+  TextColumn get exerciseName => text().named('exercise_name')();
+  DateTimeColumn get performedAt => dateTime().named('performed_at')();
+  RealColumn get weight => real().named('weight')();
+  IntColumn get totalReps => integer().named('total_reps')();
+  IntColumn get sets => integer().named('sets')();
+  IntColumn get maxReps => integer().named('max_reps')();
+}
+
+@DataClassName('BodyMetricRow')
+class BodyMetrics extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get kind => text().named('kind')();
+  RealColumn get value => real().named('value')();
+  DateTimeColumn get measuredAt => dateTime().named('measured_at')();
+}
+
 @DriftDatabase(tables: [
   Exercises,
   UserProfiles,
@@ -132,12 +153,14 @@ class Achievements extends Table {
   LeagueStates,
   XpEntries,
   Achievements,
+  ExerciseLogs,
+  BodyMetrics,
 ])
 class FraguaDatabase extends _$FraguaDatabase {
   FraguaDatabase(super.e);
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -155,6 +178,10 @@ class FraguaDatabase extends _$FraguaDatabase {
             await m.createTable(leagueStates);
             await m.createTable(xpEntries);
             await m.createTable(achievements);
+          }
+          if (from < 6) {
+            await m.createTable(exerciseLogs);
+            await m.createTable(bodyMetrics);
           }
         },
       );
@@ -331,5 +358,81 @@ class FraguaDatabase extends _$FraguaDatabase {
       AchievementsCompanion.insert(type: type, unlockedAt: at),
       mode: InsertMode.insertOrIgnore,
     );
+  }
+
+  Future<void> addExerciseLog({
+    required String exerciseId,
+    required String exerciseName,
+    required DateTime performedAt,
+    required double weight,
+    required int totalReps,
+    required int sets,
+    required int maxReps,
+  }) async {
+    await into(exerciseLogs).insert(
+      ExerciseLogsCompanion.insert(
+        exerciseId: exerciseId,
+        exerciseName: exerciseName,
+        performedAt: performedAt,
+        weight: weight,
+        totalReps: totalReps,
+        sets: sets,
+        maxReps: maxReps,
+      ),
+    );
+  }
+
+  Future<List<ExerciseLog>> loadExerciseLogs(String exerciseId) async {
+    final rows = await (select(exerciseLogs)
+          ..where((t) => t.exerciseId.equals(exerciseId))
+          ..orderBy([(t) => OrderingTerm(expression: t.performedAt)]))
+        .get();
+    return [
+      for (final r in rows)
+        ExerciseLog(
+          exerciseId: r.exerciseId,
+          exerciseName: r.exerciseName,
+          performedAt: r.performedAt,
+          weight: r.weight,
+          totalReps: r.totalReps,
+          sets: r.sets,
+          maxReps: r.maxReps,
+        ),
+    ];
+  }
+
+  Future<List<({String id, String name})>> loggedExercises() async {
+    final q = selectOnly(exerciseLogs, distinct: true)
+      ..addColumns([exerciseLogs.exerciseId, exerciseLogs.exerciseName]);
+    final rows = await q.get();
+    return [
+      for (final r in rows)
+        (
+          id: r.read(exerciseLogs.exerciseId)!,
+          name: r.read(exerciseLogs.exerciseName)!,
+        ),
+    ];
+  }
+
+  Future<void> addBodyMetric({
+    required String kind,
+    required double value,
+    required DateTime measuredAt,
+  }) async {
+    await into(bodyMetrics).insert(
+      BodyMetricsCompanion.insert(
+        kind: kind,
+        value: value,
+        measuredAt: measuredAt,
+      ),
+    );
+  }
+
+  Future<List<({DateTime at, double value})>> loadBodyMetrics(String kind) async {
+    final rows = await (select(bodyMetrics)
+          ..where((t) => t.kind.equals(kind))
+          ..orderBy([(t) => OrderingTerm(expression: t.measuredAt)]))
+        .get();
+    return [for (final r in rows) (at: r.measuredAt, value: r.value)];
   }
 }
