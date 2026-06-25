@@ -70,12 +70,25 @@ class ExerciseStates extends Table {
   Set<Column> get primaryKey => {exerciseId};
 }
 
-@DriftDatabase(tables: [Exercises, UserProfiles, Plans, ExerciseStates])
+@DataClassName('GuidedStateRow')
+class GuidedStates extends Table {
+  TextColumn get dayKey => text().named('day_key')();
+  IntColumn get workSeconds => integer().named('work_seconds')();
+  IntColumn get rounds => integer().named('rounds')();
+  IntColumn get streak =>
+      integer().named('streak').withDefault(const Constant(0))();
+
+  @override
+  Set<Column> get primaryKey => {dayKey};
+}
+
+@DriftDatabase(
+    tables: [Exercises, UserProfiles, Plans, ExerciseStates, GuidedStates])
 class FraguaDatabase extends _$FraguaDatabase {
   FraguaDatabase(super.e);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -88,6 +101,7 @@ class FraguaDatabase extends _$FraguaDatabase {
           if (from < 1) await m.createTable(userProfiles);
           if (from < 2) await m.createTable(plans);
           if (from < 3) await m.createTable(exerciseStates);
+          if (from < 4) await m.createTable(guidedStates);
         },
       );
 
@@ -180,6 +194,31 @@ class FraguaDatabase extends _$FraguaDatabase {
         exerciseId: exerciseId,
         currentWeight: weight,
         stallCount: Value(stall),
+      ),
+    );
+  }
+
+  Future<({int workSeconds, int rounds, int streak})?> guidedState(
+      String dayKey) async {
+    final row = await (select(guidedStates)
+          ..where((t) => t.dayKey.equals(dayKey)))
+        .getSingleOrNull();
+    if (row == null) return null;
+    return (
+      workSeconds: row.workSeconds,
+      rounds: row.rounds,
+      streak: row.streak,
+    );
+  }
+
+  Future<void> saveGuidedState(
+      String dayKey, int workSeconds, int rounds, int streak) async {
+    await into(guidedStates).insertOnConflictUpdate(
+      GuidedStatesCompanion.insert(
+        dayKey: dayKey,
+        workSeconds: workSeconds,
+        rounds: rounds,
+        streak: Value(streak),
       ),
     );
   }

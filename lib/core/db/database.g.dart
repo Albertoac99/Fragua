@@ -1992,6 +1992,318 @@ class ExerciseStatesCompanion extends UpdateCompanion<ExerciseStateRow> {
   }
 }
 
+class $GuidedStatesTable extends GuidedStates
+    with TableInfo<$GuidedStatesTable, GuidedStateRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $GuidedStatesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _dayKeyMeta = const VerificationMeta('dayKey');
+  @override
+  late final GeneratedColumn<String> dayKey = GeneratedColumn<String>(
+    'day_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _workSecondsMeta = const VerificationMeta(
+    'workSeconds',
+  );
+  @override
+  late final GeneratedColumn<int> workSeconds = GeneratedColumn<int>(
+    'work_seconds',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _roundsMeta = const VerificationMeta('rounds');
+  @override
+  late final GeneratedColumn<int> rounds = GeneratedColumn<int>(
+    'rounds',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _streakMeta = const VerificationMeta('streak');
+  @override
+  late final GeneratedColumn<int> streak = GeneratedColumn<int>(
+    'streak',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [dayKey, workSeconds, rounds, streak];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'guided_states';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<GuidedStateRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('day_key')) {
+      context.handle(
+        _dayKeyMeta,
+        dayKey.isAcceptableOrUnknown(data['day_key']!, _dayKeyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_dayKeyMeta);
+    }
+    if (data.containsKey('work_seconds')) {
+      context.handle(
+        _workSecondsMeta,
+        workSeconds.isAcceptableOrUnknown(
+          data['work_seconds']!,
+          _workSecondsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_workSecondsMeta);
+    }
+    if (data.containsKey('rounds')) {
+      context.handle(
+        _roundsMeta,
+        rounds.isAcceptableOrUnknown(data['rounds']!, _roundsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_roundsMeta);
+    }
+    if (data.containsKey('streak')) {
+      context.handle(
+        _streakMeta,
+        streak.isAcceptableOrUnknown(data['streak']!, _streakMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {dayKey};
+  @override
+  GuidedStateRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return GuidedStateRow(
+      dayKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}day_key'],
+      )!,
+      workSeconds: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}work_seconds'],
+      )!,
+      rounds: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}rounds'],
+      )!,
+      streak: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}streak'],
+      )!,
+    );
+  }
+
+  @override
+  $GuidedStatesTable createAlias(String alias) {
+    return $GuidedStatesTable(attachedDatabase, alias);
+  }
+}
+
+class GuidedStateRow extends DataClass implements Insertable<GuidedStateRow> {
+  final String dayKey;
+  final int workSeconds;
+  final int rounds;
+  final int streak;
+  const GuidedStateRow({
+    required this.dayKey,
+    required this.workSeconds,
+    required this.rounds,
+    required this.streak,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['day_key'] = Variable<String>(dayKey);
+    map['work_seconds'] = Variable<int>(workSeconds);
+    map['rounds'] = Variable<int>(rounds);
+    map['streak'] = Variable<int>(streak);
+    return map;
+  }
+
+  GuidedStatesCompanion toCompanion(bool nullToAbsent) {
+    return GuidedStatesCompanion(
+      dayKey: Value(dayKey),
+      workSeconds: Value(workSeconds),
+      rounds: Value(rounds),
+      streak: Value(streak),
+    );
+  }
+
+  factory GuidedStateRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return GuidedStateRow(
+      dayKey: serializer.fromJson<String>(json['dayKey']),
+      workSeconds: serializer.fromJson<int>(json['workSeconds']),
+      rounds: serializer.fromJson<int>(json['rounds']),
+      streak: serializer.fromJson<int>(json['streak']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'dayKey': serializer.toJson<String>(dayKey),
+      'workSeconds': serializer.toJson<int>(workSeconds),
+      'rounds': serializer.toJson<int>(rounds),
+      'streak': serializer.toJson<int>(streak),
+    };
+  }
+
+  GuidedStateRow copyWith({
+    String? dayKey,
+    int? workSeconds,
+    int? rounds,
+    int? streak,
+  }) => GuidedStateRow(
+    dayKey: dayKey ?? this.dayKey,
+    workSeconds: workSeconds ?? this.workSeconds,
+    rounds: rounds ?? this.rounds,
+    streak: streak ?? this.streak,
+  );
+  GuidedStateRow copyWithCompanion(GuidedStatesCompanion data) {
+    return GuidedStateRow(
+      dayKey: data.dayKey.present ? data.dayKey.value : this.dayKey,
+      workSeconds: data.workSeconds.present
+          ? data.workSeconds.value
+          : this.workSeconds,
+      rounds: data.rounds.present ? data.rounds.value : this.rounds,
+      streak: data.streak.present ? data.streak.value : this.streak,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GuidedStateRow(')
+          ..write('dayKey: $dayKey, ')
+          ..write('workSeconds: $workSeconds, ')
+          ..write('rounds: $rounds, ')
+          ..write('streak: $streak')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(dayKey, workSeconds, rounds, streak);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is GuidedStateRow &&
+          other.dayKey == this.dayKey &&
+          other.workSeconds == this.workSeconds &&
+          other.rounds == this.rounds &&
+          other.streak == this.streak);
+}
+
+class GuidedStatesCompanion extends UpdateCompanion<GuidedStateRow> {
+  final Value<String> dayKey;
+  final Value<int> workSeconds;
+  final Value<int> rounds;
+  final Value<int> streak;
+  final Value<int> rowid;
+  const GuidedStatesCompanion({
+    this.dayKey = const Value.absent(),
+    this.workSeconds = const Value.absent(),
+    this.rounds = const Value.absent(),
+    this.streak = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  GuidedStatesCompanion.insert({
+    required String dayKey,
+    required int workSeconds,
+    required int rounds,
+    this.streak = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : dayKey = Value(dayKey),
+       workSeconds = Value(workSeconds),
+       rounds = Value(rounds);
+  static Insertable<GuidedStateRow> custom({
+    Expression<String>? dayKey,
+    Expression<int>? workSeconds,
+    Expression<int>? rounds,
+    Expression<int>? streak,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (dayKey != null) 'day_key': dayKey,
+      if (workSeconds != null) 'work_seconds': workSeconds,
+      if (rounds != null) 'rounds': rounds,
+      if (streak != null) 'streak': streak,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  GuidedStatesCompanion copyWith({
+    Value<String>? dayKey,
+    Value<int>? workSeconds,
+    Value<int>? rounds,
+    Value<int>? streak,
+    Value<int>? rowid,
+  }) {
+    return GuidedStatesCompanion(
+      dayKey: dayKey ?? this.dayKey,
+      workSeconds: workSeconds ?? this.workSeconds,
+      rounds: rounds ?? this.rounds,
+      streak: streak ?? this.streak,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (dayKey.present) {
+      map['day_key'] = Variable<String>(dayKey.value);
+    }
+    if (workSeconds.present) {
+      map['work_seconds'] = Variable<int>(workSeconds.value);
+    }
+    if (rounds.present) {
+      map['rounds'] = Variable<int>(rounds.value);
+    }
+    if (streak.present) {
+      map['streak'] = Variable<int>(streak.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GuidedStatesCompanion(')
+          ..write('dayKey: $dayKey, ')
+          ..write('workSeconds: $workSeconds, ')
+          ..write('rounds: $rounds, ')
+          ..write('streak: $streak, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$FraguaDatabase extends GeneratedDatabase {
   _$FraguaDatabase(QueryExecutor e) : super(e);
   $FraguaDatabaseManager get managers => $FraguaDatabaseManager(this);
@@ -1999,6 +2311,7 @@ abstract class _$FraguaDatabase extends GeneratedDatabase {
   late final $UserProfilesTable userProfiles = $UserProfilesTable(this);
   late final $PlansTable plans = $PlansTable(this);
   late final $ExerciseStatesTable exerciseStates = $ExerciseStatesTable(this);
+  late final $GuidedStatesTable guidedStates = $GuidedStatesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2008,6 +2321,7 @@ abstract class _$FraguaDatabase extends GeneratedDatabase {
     userProfiles,
     plans,
     exerciseStates,
+    guidedStates,
   ];
 }
 
@@ -3028,6 +3342,193 @@ typedef $$ExerciseStatesTableProcessedTableManager =
       ExerciseStateRow,
       PrefetchHooks Function()
     >;
+typedef $$GuidedStatesTableCreateCompanionBuilder =
+    GuidedStatesCompanion Function({
+      required String dayKey,
+      required int workSeconds,
+      required int rounds,
+      Value<int> streak,
+      Value<int> rowid,
+    });
+typedef $$GuidedStatesTableUpdateCompanionBuilder =
+    GuidedStatesCompanion Function({
+      Value<String> dayKey,
+      Value<int> workSeconds,
+      Value<int> rounds,
+      Value<int> streak,
+      Value<int> rowid,
+    });
+
+class $$GuidedStatesTableFilterComposer
+    extends Composer<_$FraguaDatabase, $GuidedStatesTable> {
+  $$GuidedStatesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get dayKey => $composableBuilder(
+    column: $table.dayKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get workSeconds => $composableBuilder(
+    column: $table.workSeconds,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get rounds => $composableBuilder(
+    column: $table.rounds,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get streak => $composableBuilder(
+    column: $table.streak,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$GuidedStatesTableOrderingComposer
+    extends Composer<_$FraguaDatabase, $GuidedStatesTable> {
+  $$GuidedStatesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get dayKey => $composableBuilder(
+    column: $table.dayKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get workSeconds => $composableBuilder(
+    column: $table.workSeconds,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get rounds => $composableBuilder(
+    column: $table.rounds,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get streak => $composableBuilder(
+    column: $table.streak,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$GuidedStatesTableAnnotationComposer
+    extends Composer<_$FraguaDatabase, $GuidedStatesTable> {
+  $$GuidedStatesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get dayKey =>
+      $composableBuilder(column: $table.dayKey, builder: (column) => column);
+
+  GeneratedColumn<int> get workSeconds => $composableBuilder(
+    column: $table.workSeconds,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get rounds =>
+      $composableBuilder(column: $table.rounds, builder: (column) => column);
+
+  GeneratedColumn<int> get streak =>
+      $composableBuilder(column: $table.streak, builder: (column) => column);
+}
+
+class $$GuidedStatesTableTableManager
+    extends
+        RootTableManager<
+          _$FraguaDatabase,
+          $GuidedStatesTable,
+          GuidedStateRow,
+          $$GuidedStatesTableFilterComposer,
+          $$GuidedStatesTableOrderingComposer,
+          $$GuidedStatesTableAnnotationComposer,
+          $$GuidedStatesTableCreateCompanionBuilder,
+          $$GuidedStatesTableUpdateCompanionBuilder,
+          (
+            GuidedStateRow,
+            BaseReferences<
+              _$FraguaDatabase,
+              $GuidedStatesTable,
+              GuidedStateRow
+            >,
+          ),
+          GuidedStateRow,
+          PrefetchHooks Function()
+        > {
+  $$GuidedStatesTableTableManager(_$FraguaDatabase db, $GuidedStatesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$GuidedStatesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$GuidedStatesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$GuidedStatesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> dayKey = const Value.absent(),
+                Value<int> workSeconds = const Value.absent(),
+                Value<int> rounds = const Value.absent(),
+                Value<int> streak = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => GuidedStatesCompanion(
+                dayKey: dayKey,
+                workSeconds: workSeconds,
+                rounds: rounds,
+                streak: streak,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String dayKey,
+                required int workSeconds,
+                required int rounds,
+                Value<int> streak = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => GuidedStatesCompanion.insert(
+                dayKey: dayKey,
+                workSeconds: workSeconds,
+                rounds: rounds,
+                streak: streak,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$GuidedStatesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$FraguaDatabase,
+      $GuidedStatesTable,
+      GuidedStateRow,
+      $$GuidedStatesTableFilterComposer,
+      $$GuidedStatesTableOrderingComposer,
+      $$GuidedStatesTableAnnotationComposer,
+      $$GuidedStatesTableCreateCompanionBuilder,
+      $$GuidedStatesTableUpdateCompanionBuilder,
+      (
+        GuidedStateRow,
+        BaseReferences<_$FraguaDatabase, $GuidedStatesTable, GuidedStateRow>,
+      ),
+      GuidedStateRow,
+      PrefetchHooks Function()
+    >;
 
 class $FraguaDatabaseManager {
   final _$FraguaDatabase _db;
@@ -3040,4 +3541,6 @@ class $FraguaDatabaseManager {
       $$PlansTableTableManager(_db, _db.plans);
   $$ExerciseStatesTableTableManager get exerciseStates =>
       $$ExerciseStatesTableTableManager(_db, _db.exerciseStates);
+  $$GuidedStatesTableTableManager get guidedStates =>
+      $$GuidedStatesTableTableManager(_db, _db.guidedStates);
 }
