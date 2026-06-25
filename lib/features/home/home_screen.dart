@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
+import '../leagues/leagues_screen.dart';
 import '../plan/plan_screen.dart';
 import '../settings/settings_screen.dart';
 
@@ -46,6 +47,15 @@ class HomeScreen extends ConsumerWidget {
                 MaterialPageRoute(builder: (_) => const PlanScreen()),
               ),
               child: const Text('Ver mi plan'),
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              key: const Key('leagues-button'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const LeaguesScreen()),
+              ),
+              icon: const Icon(Icons.emoji_events),
+              label: const Text('Liga'),
             ),
           ],
         ),
