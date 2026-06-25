@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
+import '../plan/plan_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -26,6 +27,13 @@ class HomeScreen extends ConsumerWidget {
               loading: () => const Text('Cargando catálogo…'),
               error: (e, _) => Text('Error catálogo: $e'),
               data: (n) => Text('$n ejercicios en el catálogo'),
+            ),
+            const SizedBox(height: 16),
+            FilledButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const PlanScreen()),
+              ),
+              child: const Text('Ver mi plan'),
             ),
           ],
         ),

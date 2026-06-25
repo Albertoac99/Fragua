@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
+import '../../core/coach/coach.dart';
 import '../../core/models/enums.dart';
 import '../../core/models/user_profile.dart';
 
@@ -35,8 +36,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       sessionMinutes: _minutes,
       equipment: _equipment.isEmpty ? {Equipment.bodyweight} : _equipment,
     );
-    await ref.read(databaseProvider).saveProfile(profile);
+    final db = ref.read(databaseProvider);
+    await db.saveProfile(profile);
+    final catalog = await db.loadExercises();
+    await db.savePlan(const Coach().generate(profile, catalog));
     ref.invalidate(profileProvider);
+    ref.invalidate(planProvider);
   }
 
   @override
