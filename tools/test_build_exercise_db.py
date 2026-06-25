@@ -1,4 +1,5 @@
 import json
+import sqlite3
 from pathlib import Path
 
 import build_exercise_db as b
@@ -52,3 +53,21 @@ def test_normalize_handles_nulls():
     assert row["equipment"] == "bodyweight"
     assert row["modality"] == "both"
     assert json.loads(row["secondary_muscles"]) == []
+
+
+def test_build_db_creates_queryable_file(tmp_path):
+    raws = json.loads(FIXTURE.read_text())
+    rows = [b.normalize_exercise(r) for r in raws]
+    out = b.build_db(rows, tmp_path / "exercise_db.sqlite")
+
+    con = sqlite3.connect(out)
+    try:
+        count = con.execute("SELECT COUNT(*) FROM exercises").fetchone()[0]
+        names = {r[0] for r in con.execute("SELECT name FROM exercises")}
+        cols = [c[1] for c in con.execute("PRAGMA table_info(exercises)")]
+    finally:
+        con.close()
+
+    assert count == 3
+    assert "Barbell Squat" in names
+    assert cols == b.COLUMNS  # mismo orden y nombres que el esquema drift

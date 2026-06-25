@@ -1,4 +1,4 @@
-/// Enums de dominio de Fragua. Dart puro: no debe importar Flutter.
+// Enums de dominio de Fragua. Dart puro: no debe importar Flutter.
 
 enum Sex { male, female, other }
 
