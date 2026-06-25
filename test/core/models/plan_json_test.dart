@@ -33,4 +33,53 @@ void main() {
     expect(restored.days.first.exercises.first.exerciseId, 'Barbell_Bench_Press');
     expect(restored.days.first.exercises.first.repHigh, 12);
   });
+
+  test('PlanExercise round-trips workSeconds (y null por defecto)', () {
+    const timed = PlanExercise(
+      exerciseId: 'burpee',
+      exerciseName: 'Burpee',
+      sets: 1,
+      repLow: 10,
+      repHigh: 15,
+      restSeconds: 20,
+      workSeconds: 40,
+    );
+    expect(PlanExercise.fromJson(timed.toJson()).workSeconds, 40);
+
+    const repBased = PlanExercise(
+      exerciseId: 'squat',
+      exerciseName: 'Squat',
+      sets: 3,
+      repLow: 6,
+      repHigh: 12,
+      restSeconds: 90,
+    );
+    expect(repBased.workSeconds, isNull);
+    expect(PlanExercise.fromJson(repBased.toJson()).workSeconds, isNull);
+  });
+
+  test('PlanDay round-trips totalSeconds y los nuevos formatos', () {
+    const day = PlanDay(
+      name: 'AMRAP 10',
+      type: DayType.guided,
+      format: WorkoutFormat.amrap,
+      rounds: 5,
+      totalSeconds: 600,
+      exercises: [],
+    );
+    final back = PlanDay.fromJson(day.toJson());
+    expect(back.format, WorkoutFormat.amrap);
+    expect(back.totalSeconds, 600);
+  });
+
+  test('PlanDay sin totalSeconds => null (retrocompatible)', () {
+    const day = PlanDay(
+      name: 'Circuito 1',
+      type: DayType.guided,
+      format: WorkoutFormat.circuit,
+      rounds: 3,
+      exercises: [],
+    );
+    expect(PlanDay.fromJson(day.toJson()).totalSeconds, isNull);
+  });
 }

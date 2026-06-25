@@ -2,7 +2,7 @@ enum SplitType { fullBody, upperLower, pushPullLegs }
 
 enum DayType { strength, guided }
 
-enum WorkoutFormat { straightSets, circuit }
+enum WorkoutFormat { straightSets, circuit, intervals, amrap }
 
 class PlanExercise {
   final String exerciseId;
@@ -11,6 +11,7 @@ class PlanExercise {
   final int repLow;
   final int repHigh;
   final int restSeconds;
+  final int? workSeconds;
 
   const PlanExercise({
     required this.exerciseId,
@@ -19,6 +20,7 @@ class PlanExercise {
     required this.repLow,
     required this.repHigh,
     required this.restSeconds,
+    this.workSeconds,
   });
 
   Map<String, Object?> toJson() => {
@@ -28,6 +30,7 @@ class PlanExercise {
         'repLow': repLow,
         'repHigh': repHigh,
         'restSeconds': restSeconds,
+        'workSeconds': workSeconds,
       };
 
   factory PlanExercise.fromJson(Map<String, Object?> j) => PlanExercise(
@@ -37,6 +40,7 @@ class PlanExercise {
         repLow: j['repLow'] as int,
         repHigh: j['repHigh'] as int,
         restSeconds: j['restSeconds'] as int,
+        workSeconds: j['workSeconds'] as int?,
       );
 }
 
@@ -45,6 +49,7 @@ class PlanDay {
   final DayType type;
   final WorkoutFormat format;
   final int rounds;
+  final int? totalSeconds;
   final List<PlanExercise> exercises;
 
   const PlanDay({
@@ -52,6 +57,7 @@ class PlanDay {
     required this.type,
     required this.format,
     required this.rounds,
+    this.totalSeconds,
     required this.exercises,
   });
 
@@ -60,6 +66,7 @@ class PlanDay {
         'type': type.name,
         'format': format.name,
         'rounds': rounds,
+        'totalSeconds': totalSeconds,
         'exercises': exercises.map((e) => e.toJson()).toList(),
       };
 
@@ -68,6 +75,7 @@ class PlanDay {
         type: DayType.values.byName(j['type'] as String),
         format: WorkoutFormat.values.byName(j['format'] as String),
         rounds: j['rounds'] as int,
+        totalSeconds: j['totalSeconds'] as int?,
         exercises: (j['exercises'] as List)
             .map((e) => PlanExercise.fromJson((e as Map).cast<String, Object?>()))
             .toList(),
