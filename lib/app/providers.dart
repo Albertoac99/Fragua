@@ -4,6 +4,7 @@ import '../core/db/database.dart';
 import '../core/models/exercise.dart';
 import '../core/models/plan.dart';
 import '../core/models/user_profile.dart';
+import '../services/voice/voice_cues.dart';
 
 /// Se sobreescribe en main() con la BD real (asset) y en tests con memoria.
 final databaseProvider = Provider<FraguaDatabase>((ref) {
@@ -27,3 +28,6 @@ final catalogProvider = FutureProvider<List<Exercise>>((ref) {
 final planProvider = FutureProvider<Plan?>((ref) {
   return ref.watch(databaseProvider).loadPlan();
 });
+
+/// Override con TtsVoiceCues() en main(); SilentVoiceCues por defecto (tests).
+final voiceProvider = Provider<VoiceCues>((ref) => const SilentVoiceCues());

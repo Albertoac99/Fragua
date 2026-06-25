@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../core/db/database.dart';
 import '../../core/models/plan.dart';
@@ -39,44 +39,49 @@ class WorkoutSessionState {
   }
 }
 
-class WorkoutSessionController extends StateNotifier<WorkoutSessionState> {
+class WorkoutSessionController extends ChangeNotifier {
   WorkoutSessionController({
     required this.db,
     required PlanDay day,
     required Map<String, double> initialWeights,
-  }) : super(WorkoutSessionState(
+  }) : _state = WorkoutSessionState(
           day: day,
           exerciseIndex: 0,
           weights: Map<String, double>.from(initialWeights),
           loggedReps: {},
           finished: false,
-        ));
+        );
 
   final FraguaDatabase db;
+  WorkoutSessionState _state;
+  WorkoutSessionState get state => _state;
 
   void setWeight(double weight) {
-    state = state.copyWith(
-      weights: {...state.weights, state.current.exerciseId: weight},
+    _state = _state.copyWith(
+      weights: {..._state.weights, _state.current.exerciseId: weight},
     );
+    notifyListeners();
   }
 
   void logSet(int reps) {
-    final id = state.current.exerciseId;
-    final repsList = [...(state.loggedReps[id] ?? const <int>[]), reps];
-    state = state.copyWith(loggedReps: {...state.loggedReps, id: repsList});
+    final id = _state.current.exerciseId;
+    final repsList = [...(_state.loggedReps[id] ?? const <int>[]), reps];
+    _state = _state.copyWith(loggedReps: {..._state.loggedReps, id: repsList});
+    notifyListeners();
   }
 
   void nextExercise() {
-    if (!state.isLastExercise) {
-      state = state.copyWith(exerciseIndex: state.exerciseIndex + 1);
+    if (!_state.isLastExercise) {
+      _state = _state.copyWith(exerciseIndex: _state.exerciseIndex + 1);
+      notifyListeners();
     }
   }
 
   Future<void> finish() async {
-    for (final e in state.day.exercises) {
-      final reps = state.loggedReps[e.exerciseId];
+    for (final e in _state.day.exercises) {
+      final reps = _state.loggedReps[e.exerciseId];
       if (reps == null || reps.isEmpty) continue;
-      final weight = state.weights[e.exerciseId] ?? 0;
+      final weight = _state.weights[e.exerciseId] ?? 0;
       final prev = await db.exerciseState(e.exerciseId);
       final result = decideProgression(
         repLow: e.repLow,
@@ -90,6 +95,7 @@ class WorkoutSessionController extends StateNotifier<WorkoutSessionState> {
       await db.saveExerciseState(
           e.exerciseId, result.nextWeight, result.nextStallCount);
     }
-    state = state.copyWith(finished: true);
+    _state = _state.copyWith(finished: true);
+    notifyListeners();
   }
 }

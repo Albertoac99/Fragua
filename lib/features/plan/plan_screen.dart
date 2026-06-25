@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../core/models/plan.dart';
+import '../workout/session_screen.dart';
 
 class PlanScreen extends ConsumerWidget {
   const PlanScreen({super.key});
@@ -52,6 +53,16 @@ class _DayCard extends StatelessWidget {
                     Expanded(child: Text(e.exerciseName)),
                     Text('${e.sets} x ${e.repLow}-${e.repHigh}'),
                   ],
+                ),
+              ),
+            if (day.type == DayType.strength && day.exercises.isNotEmpty)
+              Align(
+                alignment: Alignment.centerRight,
+                child: FilledButton(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => SessionScreen(day: day)),
+                  ),
+                  child: const Text('Empezar'),
                 ),
               ),
           ],
