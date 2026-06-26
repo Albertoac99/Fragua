@@ -4225,6 +4225,437 @@ class BodyMetricsCompanion extends UpdateCompanion<BodyMetricRow> {
   }
 }
 
+class $AppSettingsTable extends AppSettings
+    with TableInfo<$AppSettingsTable, AppSettingsRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AppSettingsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _remindersEnabledMeta = const VerificationMeta(
+    'remindersEnabled',
+  );
+  @override
+  late final GeneratedColumn<bool> remindersEnabled = GeneratedColumn<bool>(
+    'reminders_enabled',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("reminders_enabled" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _reminderHourMeta = const VerificationMeta(
+    'reminderHour',
+  );
+  @override
+  late final GeneratedColumn<int> reminderHour = GeneratedColumn<int>(
+    'reminder_hour',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(19),
+  );
+  static const VerificationMeta _reminderMinuteMeta = const VerificationMeta(
+    'reminderMinute',
+  );
+  @override
+  late final GeneratedColumn<int> reminderMinute = GeneratedColumn<int>(
+    'reminder_minute',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _reminderDaysMaskMeta = const VerificationMeta(
+    'reminderDaysMask',
+  );
+  @override
+  late final GeneratedColumn<int> reminderDaysMask = GeneratedColumn<int>(
+    'reminder_days_mask',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0x1F),
+  );
+  static const VerificationMeta _streakReminderEnabledMeta =
+      const VerificationMeta('streakReminderEnabled');
+  @override
+  late final GeneratedColumn<bool> streakReminderEnabled =
+      GeneratedColumn<bool>(
+        'streak_reminder_enabled',
+        aliasedName,
+        false,
+        type: DriftSqlType.bool,
+        requiredDuringInsert: false,
+        defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("streak_reminder_enabled" IN (0, 1))',
+        ),
+        defaultValue: const Constant(true),
+      );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    remindersEnabled,
+    reminderHour,
+    reminderMinute,
+    reminderDaysMask,
+    streakReminderEnabled,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'app_settings';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AppSettingsRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('reminders_enabled')) {
+      context.handle(
+        _remindersEnabledMeta,
+        remindersEnabled.isAcceptableOrUnknown(
+          data['reminders_enabled']!,
+          _remindersEnabledMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reminder_hour')) {
+      context.handle(
+        _reminderHourMeta,
+        reminderHour.isAcceptableOrUnknown(
+          data['reminder_hour']!,
+          _reminderHourMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reminder_minute')) {
+      context.handle(
+        _reminderMinuteMeta,
+        reminderMinute.isAcceptableOrUnknown(
+          data['reminder_minute']!,
+          _reminderMinuteMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reminder_days_mask')) {
+      context.handle(
+        _reminderDaysMaskMeta,
+        reminderDaysMask.isAcceptableOrUnknown(
+          data['reminder_days_mask']!,
+          _reminderDaysMaskMeta,
+        ),
+      );
+    }
+    if (data.containsKey('streak_reminder_enabled')) {
+      context.handle(
+        _streakReminderEnabledMeta,
+        streakReminderEnabled.isAcceptableOrUnknown(
+          data['streak_reminder_enabled']!,
+          _streakReminderEnabledMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AppSettingsRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AppSettingsRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      remindersEnabled: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}reminders_enabled'],
+      )!,
+      reminderHour: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}reminder_hour'],
+      )!,
+      reminderMinute: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}reminder_minute'],
+      )!,
+      reminderDaysMask: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}reminder_days_mask'],
+      )!,
+      streakReminderEnabled: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}streak_reminder_enabled'],
+      )!,
+    );
+  }
+
+  @override
+  $AppSettingsTable createAlias(String alias) {
+    return $AppSettingsTable(attachedDatabase, alias);
+  }
+}
+
+class AppSettingsRow extends DataClass implements Insertable<AppSettingsRow> {
+  final int id;
+  final bool remindersEnabled;
+  final int reminderHour;
+  final int reminderMinute;
+  final int reminderDaysMask;
+  final bool streakReminderEnabled;
+  const AppSettingsRow({
+    required this.id,
+    required this.remindersEnabled,
+    required this.reminderHour,
+    required this.reminderMinute,
+    required this.reminderDaysMask,
+    required this.streakReminderEnabled,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['reminders_enabled'] = Variable<bool>(remindersEnabled);
+    map['reminder_hour'] = Variable<int>(reminderHour);
+    map['reminder_minute'] = Variable<int>(reminderMinute);
+    map['reminder_days_mask'] = Variable<int>(reminderDaysMask);
+    map['streak_reminder_enabled'] = Variable<bool>(streakReminderEnabled);
+    return map;
+  }
+
+  AppSettingsCompanion toCompanion(bool nullToAbsent) {
+    return AppSettingsCompanion(
+      id: Value(id),
+      remindersEnabled: Value(remindersEnabled),
+      reminderHour: Value(reminderHour),
+      reminderMinute: Value(reminderMinute),
+      reminderDaysMask: Value(reminderDaysMask),
+      streakReminderEnabled: Value(streakReminderEnabled),
+    );
+  }
+
+  factory AppSettingsRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AppSettingsRow(
+      id: serializer.fromJson<int>(json['id']),
+      remindersEnabled: serializer.fromJson<bool>(json['remindersEnabled']),
+      reminderHour: serializer.fromJson<int>(json['reminderHour']),
+      reminderMinute: serializer.fromJson<int>(json['reminderMinute']),
+      reminderDaysMask: serializer.fromJson<int>(json['reminderDaysMask']),
+      streakReminderEnabled: serializer.fromJson<bool>(
+        json['streakReminderEnabled'],
+      ),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'remindersEnabled': serializer.toJson<bool>(remindersEnabled),
+      'reminderHour': serializer.toJson<int>(reminderHour),
+      'reminderMinute': serializer.toJson<int>(reminderMinute),
+      'reminderDaysMask': serializer.toJson<int>(reminderDaysMask),
+      'streakReminderEnabled': serializer.toJson<bool>(streakReminderEnabled),
+    };
+  }
+
+  AppSettingsRow copyWith({
+    int? id,
+    bool? remindersEnabled,
+    int? reminderHour,
+    int? reminderMinute,
+    int? reminderDaysMask,
+    bool? streakReminderEnabled,
+  }) => AppSettingsRow(
+    id: id ?? this.id,
+    remindersEnabled: remindersEnabled ?? this.remindersEnabled,
+    reminderHour: reminderHour ?? this.reminderHour,
+    reminderMinute: reminderMinute ?? this.reminderMinute,
+    reminderDaysMask: reminderDaysMask ?? this.reminderDaysMask,
+    streakReminderEnabled: streakReminderEnabled ?? this.streakReminderEnabled,
+  );
+  AppSettingsRow copyWithCompanion(AppSettingsCompanion data) {
+    return AppSettingsRow(
+      id: data.id.present ? data.id.value : this.id,
+      remindersEnabled: data.remindersEnabled.present
+          ? data.remindersEnabled.value
+          : this.remindersEnabled,
+      reminderHour: data.reminderHour.present
+          ? data.reminderHour.value
+          : this.reminderHour,
+      reminderMinute: data.reminderMinute.present
+          ? data.reminderMinute.value
+          : this.reminderMinute,
+      reminderDaysMask: data.reminderDaysMask.present
+          ? data.reminderDaysMask.value
+          : this.reminderDaysMask,
+      streakReminderEnabled: data.streakReminderEnabled.present
+          ? data.streakReminderEnabled.value
+          : this.streakReminderEnabled,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AppSettingsRow(')
+          ..write('id: $id, ')
+          ..write('remindersEnabled: $remindersEnabled, ')
+          ..write('reminderHour: $reminderHour, ')
+          ..write('reminderMinute: $reminderMinute, ')
+          ..write('reminderDaysMask: $reminderDaysMask, ')
+          ..write('streakReminderEnabled: $streakReminderEnabled')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    remindersEnabled,
+    reminderHour,
+    reminderMinute,
+    reminderDaysMask,
+    streakReminderEnabled,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AppSettingsRow &&
+          other.id == this.id &&
+          other.remindersEnabled == this.remindersEnabled &&
+          other.reminderHour == this.reminderHour &&
+          other.reminderMinute == this.reminderMinute &&
+          other.reminderDaysMask == this.reminderDaysMask &&
+          other.streakReminderEnabled == this.streakReminderEnabled);
+}
+
+class AppSettingsCompanion extends UpdateCompanion<AppSettingsRow> {
+  final Value<int> id;
+  final Value<bool> remindersEnabled;
+  final Value<int> reminderHour;
+  final Value<int> reminderMinute;
+  final Value<int> reminderDaysMask;
+  final Value<bool> streakReminderEnabled;
+  const AppSettingsCompanion({
+    this.id = const Value.absent(),
+    this.remindersEnabled = const Value.absent(),
+    this.reminderHour = const Value.absent(),
+    this.reminderMinute = const Value.absent(),
+    this.reminderDaysMask = const Value.absent(),
+    this.streakReminderEnabled = const Value.absent(),
+  });
+  AppSettingsCompanion.insert({
+    this.id = const Value.absent(),
+    this.remindersEnabled = const Value.absent(),
+    this.reminderHour = const Value.absent(),
+    this.reminderMinute = const Value.absent(),
+    this.reminderDaysMask = const Value.absent(),
+    this.streakReminderEnabled = const Value.absent(),
+  });
+  static Insertable<AppSettingsRow> custom({
+    Expression<int>? id,
+    Expression<bool>? remindersEnabled,
+    Expression<int>? reminderHour,
+    Expression<int>? reminderMinute,
+    Expression<int>? reminderDaysMask,
+    Expression<bool>? streakReminderEnabled,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (remindersEnabled != null) 'reminders_enabled': remindersEnabled,
+      if (reminderHour != null) 'reminder_hour': reminderHour,
+      if (reminderMinute != null) 'reminder_minute': reminderMinute,
+      if (reminderDaysMask != null) 'reminder_days_mask': reminderDaysMask,
+      if (streakReminderEnabled != null)
+        'streak_reminder_enabled': streakReminderEnabled,
+    });
+  }
+
+  AppSettingsCompanion copyWith({
+    Value<int>? id,
+    Value<bool>? remindersEnabled,
+    Value<int>? reminderHour,
+    Value<int>? reminderMinute,
+    Value<int>? reminderDaysMask,
+    Value<bool>? streakReminderEnabled,
+  }) {
+    return AppSettingsCompanion(
+      id: id ?? this.id,
+      remindersEnabled: remindersEnabled ?? this.remindersEnabled,
+      reminderHour: reminderHour ?? this.reminderHour,
+      reminderMinute: reminderMinute ?? this.reminderMinute,
+      reminderDaysMask: reminderDaysMask ?? this.reminderDaysMask,
+      streakReminderEnabled:
+          streakReminderEnabled ?? this.streakReminderEnabled,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (remindersEnabled.present) {
+      map['reminders_enabled'] = Variable<bool>(remindersEnabled.value);
+    }
+    if (reminderHour.present) {
+      map['reminder_hour'] = Variable<int>(reminderHour.value);
+    }
+    if (reminderMinute.present) {
+      map['reminder_minute'] = Variable<int>(reminderMinute.value);
+    }
+    if (reminderDaysMask.present) {
+      map['reminder_days_mask'] = Variable<int>(reminderDaysMask.value);
+    }
+    if (streakReminderEnabled.present) {
+      map['streak_reminder_enabled'] = Variable<bool>(
+        streakReminderEnabled.value,
+      );
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AppSettingsCompanion(')
+          ..write('id: $id, ')
+          ..write('remindersEnabled: $remindersEnabled, ')
+          ..write('reminderHour: $reminderHour, ')
+          ..write('reminderMinute: $reminderMinute, ')
+          ..write('reminderDaysMask: $reminderDaysMask, ')
+          ..write('streakReminderEnabled: $streakReminderEnabled')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$FraguaDatabase extends GeneratedDatabase {
   _$FraguaDatabase(QueryExecutor e) : super(e);
   $FraguaDatabaseManager get managers => $FraguaDatabaseManager(this);
@@ -4238,6 +4669,7 @@ abstract class _$FraguaDatabase extends GeneratedDatabase {
   late final $AchievementsTable achievements = $AchievementsTable(this);
   late final $ExerciseLogsTable exerciseLogs = $ExerciseLogsTable(this);
   late final $BodyMetricsTable bodyMetrics = $BodyMetricsTable(this);
+  late final $AppSettingsTable appSettings = $AppSettingsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -4253,6 +4685,7 @@ abstract class _$FraguaDatabase extends GeneratedDatabase {
     achievements,
     exerciseLogs,
     bodyMetrics,
+    appSettings,
   ];
 }
 
@@ -6523,6 +6956,229 @@ typedef $$BodyMetricsTableProcessedTableManager =
       BodyMetricRow,
       PrefetchHooks Function()
     >;
+typedef $$AppSettingsTableCreateCompanionBuilder =
+    AppSettingsCompanion Function({
+      Value<int> id,
+      Value<bool> remindersEnabled,
+      Value<int> reminderHour,
+      Value<int> reminderMinute,
+      Value<int> reminderDaysMask,
+      Value<bool> streakReminderEnabled,
+    });
+typedef $$AppSettingsTableUpdateCompanionBuilder =
+    AppSettingsCompanion Function({
+      Value<int> id,
+      Value<bool> remindersEnabled,
+      Value<int> reminderHour,
+      Value<int> reminderMinute,
+      Value<int> reminderDaysMask,
+      Value<bool> streakReminderEnabled,
+    });
+
+class $$AppSettingsTableFilterComposer
+    extends Composer<_$FraguaDatabase, $AppSettingsTable> {
+  $$AppSettingsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get remindersEnabled => $composableBuilder(
+    column: $table.remindersEnabled,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get reminderHour => $composableBuilder(
+    column: $table.reminderHour,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get reminderMinute => $composableBuilder(
+    column: $table.reminderMinute,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get reminderDaysMask => $composableBuilder(
+    column: $table.reminderDaysMask,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get streakReminderEnabled => $composableBuilder(
+    column: $table.streakReminderEnabled,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$AppSettingsTableOrderingComposer
+    extends Composer<_$FraguaDatabase, $AppSettingsTable> {
+  $$AppSettingsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get remindersEnabled => $composableBuilder(
+    column: $table.remindersEnabled,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get reminderHour => $composableBuilder(
+    column: $table.reminderHour,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get reminderMinute => $composableBuilder(
+    column: $table.reminderMinute,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get reminderDaysMask => $composableBuilder(
+    column: $table.reminderDaysMask,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get streakReminderEnabled => $composableBuilder(
+    column: $table.streakReminderEnabled,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$AppSettingsTableAnnotationComposer
+    extends Composer<_$FraguaDatabase, $AppSettingsTable> {
+  $$AppSettingsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<bool> get remindersEnabled => $composableBuilder(
+    column: $table.remindersEnabled,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get reminderHour => $composableBuilder(
+    column: $table.reminderHour,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get reminderMinute => $composableBuilder(
+    column: $table.reminderMinute,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get reminderDaysMask => $composableBuilder(
+    column: $table.reminderDaysMask,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get streakReminderEnabled => $composableBuilder(
+    column: $table.streakReminderEnabled,
+    builder: (column) => column,
+  );
+}
+
+class $$AppSettingsTableTableManager
+    extends
+        RootTableManager<
+          _$FraguaDatabase,
+          $AppSettingsTable,
+          AppSettingsRow,
+          $$AppSettingsTableFilterComposer,
+          $$AppSettingsTableOrderingComposer,
+          $$AppSettingsTableAnnotationComposer,
+          $$AppSettingsTableCreateCompanionBuilder,
+          $$AppSettingsTableUpdateCompanionBuilder,
+          (
+            AppSettingsRow,
+            BaseReferences<_$FraguaDatabase, $AppSettingsTable, AppSettingsRow>,
+          ),
+          AppSettingsRow,
+          PrefetchHooks Function()
+        > {
+  $$AppSettingsTableTableManager(_$FraguaDatabase db, $AppSettingsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AppSettingsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AppSettingsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AppSettingsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<bool> remindersEnabled = const Value.absent(),
+                Value<int> reminderHour = const Value.absent(),
+                Value<int> reminderMinute = const Value.absent(),
+                Value<int> reminderDaysMask = const Value.absent(),
+                Value<bool> streakReminderEnabled = const Value.absent(),
+              }) => AppSettingsCompanion(
+                id: id,
+                remindersEnabled: remindersEnabled,
+                reminderHour: reminderHour,
+                reminderMinute: reminderMinute,
+                reminderDaysMask: reminderDaysMask,
+                streakReminderEnabled: streakReminderEnabled,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<bool> remindersEnabled = const Value.absent(),
+                Value<int> reminderHour = const Value.absent(),
+                Value<int> reminderMinute = const Value.absent(),
+                Value<int> reminderDaysMask = const Value.absent(),
+                Value<bool> streakReminderEnabled = const Value.absent(),
+              }) => AppSettingsCompanion.insert(
+                id: id,
+                remindersEnabled: remindersEnabled,
+                reminderHour: reminderHour,
+                reminderMinute: reminderMinute,
+                reminderDaysMask: reminderDaysMask,
+                streakReminderEnabled: streakReminderEnabled,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$AppSettingsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$FraguaDatabase,
+      $AppSettingsTable,
+      AppSettingsRow,
+      $$AppSettingsTableFilterComposer,
+      $$AppSettingsTableOrderingComposer,
+      $$AppSettingsTableAnnotationComposer,
+      $$AppSettingsTableCreateCompanionBuilder,
+      $$AppSettingsTableUpdateCompanionBuilder,
+      (
+        AppSettingsRow,
+        BaseReferences<_$FraguaDatabase, $AppSettingsTable, AppSettingsRow>,
+      ),
+      AppSettingsRow,
+      PrefetchHooks Function()
+    >;
 
 class $FraguaDatabaseManager {
   final _$FraguaDatabase _db;
@@ -6547,4 +7203,6 @@ class $FraguaDatabaseManager {
       $$ExerciseLogsTableTableManager(_db, _db.exerciseLogs);
   $$BodyMetricsTableTableManager get bodyMetrics =>
       $$BodyMetricsTableTableManager(_db, _db.bodyMetrics);
+  $$AppSettingsTableTableManager get appSettings =>
+      $$AppSettingsTableTableManager(_db, _db.appSettings);
 }

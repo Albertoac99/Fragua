@@ -6,6 +6,7 @@ import '../models/enums.dart';
 import '../models/exercise.dart';
 import '../models/plan.dart';
 import '../models/user_profile.dart';
+import '../notifications/notification_settings.dart';
 import '../stats/exercise_log.dart';
 
 part 'database.g.dart';
@@ -144,6 +145,25 @@ class BodyMetrics extends Table {
   DateTimeColumn get measuredAt => dateTime().named('measured_at')();
 }
 
+@DataClassName('AppSettingsRow')
+class AppSettings extends Table {
+  IntColumn get id => integer().named('id').withDefault(const Constant(0))();
+  BoolColumn get remindersEnabled =>
+      boolean().named('reminders_enabled').withDefault(const Constant(false))();
+  IntColumn get reminderHour =>
+      integer().named('reminder_hour').withDefault(const Constant(19))();
+  IntColumn get reminderMinute =>
+      integer().named('reminder_minute').withDefault(const Constant(0))();
+  IntColumn get reminderDaysMask =>
+      integer().named('reminder_days_mask').withDefault(const Constant(0x1F))();
+  BoolColumn get streakReminderEnabled => boolean()
+      .named('streak_reminder_enabled')
+      .withDefault(const Constant(true))();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DriftDatabase(tables: [
   Exercises,
   UserProfiles,
@@ -155,12 +175,13 @@ class BodyMetrics extends Table {
   Achievements,
   ExerciseLogs,
   BodyMetrics,
+  AppSettings,
 ])
 class FraguaDatabase extends _$FraguaDatabase {
   FraguaDatabase(super.e);
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -183,6 +204,7 @@ class FraguaDatabase extends _$FraguaDatabase {
             await m.createTable(exerciseLogs);
             await m.createTable(bodyMetrics);
           }
+          if (from < 7) await m.createTable(appSettings);
         },
       );
 
@@ -434,5 +456,31 @@ class FraguaDatabase extends _$FraguaDatabase {
           ..orderBy([(t) => OrderingTerm(expression: t.measuredAt)]))
         .get();
     return [for (final r in rows) (at: r.measuredAt, value: r.value)];
+  }
+
+  Future<NotificationSettings> loadNotificationSettings() async {
+    final row = await (select(appSettings)..where((t) => t.id.equals(0)))
+        .getSingleOrNull();
+    if (row == null) return const NotificationSettings();
+    return NotificationSettings(
+      remindersEnabled: row.remindersEnabled,
+      reminderHour: row.reminderHour,
+      reminderMinute: row.reminderMinute,
+      reminderDays: daysFromMask(row.reminderDaysMask),
+      streakReminderEnabled: row.streakReminderEnabled,
+    );
+  }
+
+  Future<void> saveNotificationSettings(NotificationSettings s) async {
+    await into(appSettings).insertOnConflictUpdate(
+      AppSettingsCompanion.insert(
+        id: const Value(0),
+        remindersEnabled: Value(s.remindersEnabled),
+        reminderHour: Value(s.reminderHour),
+        reminderMinute: Value(s.reminderMinute),
+        reminderDaysMask: Value(daysMaskOf(s.reminderDays)),
+        streakReminderEnabled: Value(s.streakReminderEnabled),
+      ),
+    );
   }
 }
