@@ -4,7 +4,8 @@ import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 /// Seam de notificaciones locales. La app degrada sin él (NoopNotifier).
-abstract class Notifier {
+/// (Se llama `AppNotifier` para no colisionar con `Notifier` de Riverpod.)
+abstract class AppNotifier {
   Future<void> init();
   Future<bool> requestPermission();
   Future<void> scheduleAt(int id, DateTime when, String title, String body);
@@ -12,7 +13,7 @@ abstract class Notifier {
 }
 
 /// Sin notificaciones (tests / permiso denegado / fallo del plugin).
-class NoopNotifier implements Notifier {
+class NoopNotifier implements AppNotifier {
   const NoopNotifier();
   @override
   Future<void> init() async {}
@@ -26,7 +27,7 @@ class NoopNotifier implements Notifier {
 }
 
 /// Implementación real con flutter_local_notifications + timezone.
-class LocalNotifier implements Notifier {
+class LocalNotifier implements AppNotifier {
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 

@@ -49,7 +49,7 @@ final leaguesServiceProvider = Provider<LeaguesService>(
     (ref) => LeaguesService(ref.read(databaseProvider)));
 
 /// Override con LocalNotifier() en main(); NoopNotifier por defecto (tests).
-final notifierProvider = Provider<Notifier>((ref) => const NoopNotifier());
+final notifierProvider = Provider<AppNotifier>((ref) => const NoopNotifier());
 
 /// Orquesta el (re)agendado de avisos según ajustes + estado de racha.
 final notificationsServiceProvider = Provider<NotificationsService>((ref) =>

@@ -6,7 +6,7 @@ import 'package:fragua/core/notifications/notification_settings.dart';
 import 'package:fragua/features/notifications/notifications_service.dart';
 import 'package:fragua/services/notifications/notifier.dart';
 
-class FakeNotifier implements Notifier {
+class FakeNotifier implements AppNotifier {
   final List<({int id, DateTime when, String title})> scheduled = [];
   bool cancelled = false;
   @override

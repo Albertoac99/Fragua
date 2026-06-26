@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../core/media/exercise_media.dart';
+import '../notifications/notifications_settings_screen.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -67,6 +68,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          ListTile(
+            key: const Key('open-notifications'),
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.notifications),
+            title: const Text('Notificaciones'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (_) => const NotificationsSettingsScreen()),
+            ),
+          ),
+          const Divider(height: 32),
           Text('Caché de animaciones',
               style: Theme.of(context).textTheme.titleMedium),
           Text('Tamaño actual: $mb MB'),

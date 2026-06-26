@@ -4,7 +4,7 @@ import '../../services/notifications/notifier.dart';
 
 class NotificationsService {
   NotificationsService({required this.notifier, required this.db});
-  final Notifier notifier;
+  final AppNotifier notifier;
   final FraguaDatabase db;
 
   /// Cancela y reprograma todos los avisos según ajustes y estado de racha.
