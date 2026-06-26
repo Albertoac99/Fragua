@@ -9,7 +9,9 @@ import '../core/models/plan.dart';
 import '../core/models/user_profile.dart';
 import '../core/stats/exercise_log.dart';
 import '../features/leagues/leagues_service.dart';
+import '../features/notifications/notifications_service.dart';
 import '../services/media/media_cache.dart';
+import '../services/notifications/notifier.dart';
 import '../services/voice/voice_cues.dart';
 
 /// Se sobreescribe en main() con la BD real (asset) y en tests con memoria.
@@ -45,6 +47,14 @@ final mediaCacheProvider =
 /// Servicio de ligas (premio de XP/racha/logros al terminar la sesión).
 final leaguesServiceProvider = Provider<LeaguesService>(
     (ref) => LeaguesService(ref.read(databaseProvider)));
+
+/// Override con LocalNotifier() en main(); NoopNotifier por defecto (tests).
+final notifierProvider = Provider<Notifier>((ref) => const NoopNotifier());
+
+/// Orquesta el (re)agendado de avisos según ajustes + estado de racha.
+final notificationsServiceProvider = Provider<NotificationsService>((ref) =>
+    NotificationsService(
+        notifier: ref.read(notifierProvider), db: ref.read(databaseProvider)));
 
 /// Serie temporal de una medida corporal (peso, cintura, …) por `kind`.
 final bodyMetricProvider =
