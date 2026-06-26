@@ -47,3 +47,8 @@ app.*.map.json
 # Fragua tools
 tools/.cache/
 tools/.venv/
+
+# Firma release (M9): el keystore y sus credenciales NUNCA se versionan.
+**/key.properties
+**/*.jks
+**/*.keystore
