@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Descarga de GIFs/imágenes de demostración de los ejercicios. Sin este
+         permiso el build de release no tiene red y todo cae al fallback de texto. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!-- Notificaciones locales (flutter_local_notifications). Programación
          inexacta (inexactAllowWhileIdle): no se requiere SCHEDULE_EXACT_ALARM. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>

@@ -47,6 +47,9 @@ app.*.map.json
 # Fragua tools
 tools/.cache/
 tools/.venv/
+tools/.argos_model/
+# Copia de seguridad en inglés de la BD (se regenera al traducir)
+assets/*.en.bak
 
 # Firma release (M9): el keystore y sus credenciales NUNCA se versionan.
 **/key.properties

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
+import '../../core/models/enum_labels.dart';
 import '../leagues/leagues_screen.dart';
 import '../plan/plan_screen.dart';
 import '../settings/settings_screen.dart';
@@ -35,7 +36,7 @@ class HomeScreen extends ConsumerWidget {
             const SizedBox(height: 12),
             Text(profile == null
                 ? 'Sin perfil'
-                : 'Objetivo: ${profile.goal.name} · ${profile.daysPerWeek} días/sem'),
+                : 'Objetivo: ${profile.goal.label} · ${profile.daysPerWeek} días/sem'),
             const SizedBox(height: 8),
             count.when(
               loading: () => const Text('Cargando catálogo…'),

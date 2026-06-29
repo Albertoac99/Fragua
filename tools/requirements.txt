@@ -1,2 +1,6 @@
 requests
 pytest
+# Traducción offline de instrucciones (translate_db_es.py): modelo Argos en->es
+# ejecutado con CTranslate2 + SentencePiece (sin torch).
+ctranslate2
+sentencepiece

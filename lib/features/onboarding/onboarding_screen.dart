@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../core/coach/coach.dart';
+import '../../core/models/enum_labels.dart';
 import '../../core/models/enums.dart';
 import '../../core/models/user_profile.dart';
 
@@ -51,12 +52,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _dropdown<Sex>(
-              'Género', _sex, Sex.values, (v) => setState(() => _sex = v)),
-          _dropdown<Goal>(
-              'Objetivo', _goal, Goal.values, (v) => setState(() => _goal = v)),
+          _dropdown<Sex>('Género', _sex, Sex.values, (v) => v.label,
+              (v) => setState(() => _sex = v)),
+          _dropdown<Goal>('Objetivo', _goal, Goal.values, (v) => v.label,
+              (v) => setState(() => _goal = v)),
           _dropdown<ExperienceLevel>('Nivel', _level, ExperienceLevel.values,
-              (v) => setState(() => _level = v)),
+              (v) => v.label, (v) => setState(() => _level = v)),
           _slider('Altura (cm)', _height, 120, 220,
               (v) => setState(() => _height = v)),
           _slider(
@@ -72,7 +73,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             children: Equipment.values.map((e) {
               final sel = _equipment.contains(e);
               return FilterChip(
-                label: Text(e.name),
+                label: Text(e.label),
                 selected: sel,
                 onSelected: (s) =>
                     setState(() => s ? _equipment.add(e) : _equipment.remove(e)),
@@ -95,15 +96,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
-  Widget _dropdown<T extends Enum>(
-      String label, T value, List<T> values, ValueChanged<T> onChanged) {
+  Widget _dropdown<T extends Enum>(String label, T value, List<T> values,
+      String Function(T) labeler, ValueChanged<T> onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: DropdownButtonFormField<T>(
         initialValue: value,
         decoration: InputDecoration(labelText: label),
         items: values
-            .map((v) => DropdownMenuItem(value: v, child: Text(v.name)))
+            .map((v) => DropdownMenuItem(value: v, child: Text(labeler(v))))
             .toList(),
         onChanged: (v) => onChanged(v as T),
       ),
